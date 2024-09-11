@@ -3,19 +3,24 @@ data4=read.csv('dataRF.csv')
 sum(is.na(data4))
 str(data4)
 
-# 准备数据
-features <- data4[, -ncol(data4)]  # 所有特征列
+# Prepare data
+features <- data4[, -ncol(data4)]  # All feature columns
 sum(is.na(features))
 
-class <- data4[, ncol(data4)]  # 目标变量列
+class <- data4[, ncol(data4)]  # Target variable column
 sum(is.na(class)) 
 
-# 数据标准化
+# Data standardization
 variances <- apply(features, 2, var)
 features <- features[, variances > 0]
 features <- scale(features, center = TRUE, scale = TRUE)
 rownames(features) <- 1:nrow(features)
 
+# Use combineFS function for feature selection
+# Depending on whether data is standardized, set features = features/features_matrix
+# Set univariate filter to information gain filtering ('gain'), and control the percentage of features returned with the n.percent parameter
+# Set multivariate filter to matrix correlation filtering ('mcorr'), using the default maxcorr threshold of 0.75
+# Use recursive feature elimination with random forest ('rfe.rf') as the wrapper method
 results <- combineFS(features = features, class = class,
                      univariate = "gain", n.percent = 0.75, zero.gain.out = TRUE,
                      multivariate = "mcorr", maxcorr = 0.75,
@@ -25,20 +30,16 @@ results <- combineFS(features = features, class = class,
 
 print(results)
 
-# 不进行数据标准化
-# 计算方差并筛选出方差大于0的列
+# Without data standardization
+# Calculate variance and filter columns with variance greater than 0
 variances <- apply(features, 2, var)
 features <- features[, variances > 0]
 
-# 将特征数据转换为矩阵
+# Convert feature data to matrix
 features_matrix <- as.matrix(features)
 rownames(features_matrix) <- 1:nrow(features_matrix)
 
-# 使用combineFS函数进行特征选择
-#根据是否进行数据标准化设置features = features/features_matrix
-# 设置单变量过滤为信息增益过滤 ('gain')，并设置n.percent参数控制返回的特征百分比
-# 设置多变量过滤为矩阵相关性过滤 ('mcorr')，并使用默认的maxcorr阈值0.75
-# 使用递归特征消除包装随机森林 ('rfe.rf') 作为包装方法
+
 results <- combineFS(features = features_matrix, class = class,
                      univariate = "gain", n.percent = 0.75, zero.gain.out = TRUE,
                      multivariate = "mcorr", maxcorr = 0.75,
@@ -48,18 +49,18 @@ results <- combineFS(features = features_matrix, class = class,
 
 print(results)
 
-#Elastic Net
+# Elastic Net
 data4=read.csv('data307.csv')
-y <- data4$KIQ400  # 确保目标变量是适当编码（0和1）
-x <- as.matrix(data4[, -which(colnames(data4) == "KIQ400")])  # 特征矩阵
+y <- data4$KIQ400  # Ensure the target variable is appropriately coded (0 and 1)
+x <- as.matrix(data4[, -which(colnames(data4) == "KIQ400")])  # Feature matrix
 
-#通过设置alpha = 0.5来特定使用弹性网络
-fit <- glmnet(x, y, family = "binomial", alpha = 0.5)  # 使用弹性网络
+# Specifically use elastic net by setting alpha = 0.5
+fit <- glmnet(x, y, family = "binomial", alpha = 0.5)  # Use elastic net
 
-#通过交叉验证确定最佳的正则化参数lambda
+# Determine the best regularization parameter lambda through cross-validation
 cv_fit <- cv.glmnet(x, y, family = "binomial", alpha = 0.5)
 plot(cv_fit)
-best_lambda <- cv_fit$lambda.min  # 选择使交叉验证误差最小的lambda
+best_lambda <- cv_fit$lambda.min  # Select the lambda that minimizes cross-validation error
 
-#使用最优lambda查看保留下来的系数
+# Examine retained coefficients using optimal lambda
 coef(cv_fit, s = "lambda.min")
