@@ -5,28 +5,28 @@ abline(h = seq(0, 1, by = 0.2), v = seq(0, 1, by = 0.2), lty = "dotted", col = "
 
 title(main = "ROC curve in train group")
 
-# 使用 rocit 函数计算LightGBM训练集ROC数据
-# 如果绘制测试集ROC数据采用all_preds_Light，以下模型同
+# Use the rocit function to calculate ROC data for the LightGBM training set
+# If plotting test set ROC data, use all_preds_Light, same for other models
 roc_result1 <- rocit(score = train_preds_Light, class = as.factor(train_actuals_Light), negref = "0", method = "bin")
 lines(roc_result1$FP, roc_result1$TP, col = "#82B29A",lwd = 2)
 
 
-# 使用 rocit 函数计算XGBoost测试集ROC数据
+# Use the rocit function to calculate ROC data for the XGBoost test set
 roc_result2 <- rocit(score = train_preds_XG, class = as.factor(train_actuals_XG), negref = "0", method = "bin")
 lines(roc_result2$FP, roc_result2$TP, col = "#3C405B",lwd = 2)
 
-# 使用 rocit 函数计算CatBoost测试集ROC数据
+# Use the rocit function to calculate ROC data for the CatBoost test set
 roc_result3 <- rocit(score = train_preds_CAT, class = as.factor(train_actuals_CAT), negref = "0", method = "bin")
 lines(roc_result3$FP, roc_result3$TP, col = "#DF7A5E",lwd = 2)
 
-legend("bottomright",          # 图例位置
+legend("bottomright",          # Legend position
        legend = c("LightGBM(Area=0.930)","XGBoost(Area=0.904)", "CatBoost(Area=0.902)", "Chance line"),  # 图例文本
        col = c("#82B29A", "#3C405B", "#DF7A5E", "gray"),  # 线条颜色
        lty = c(1, 1, 1, 2),  # 线条类型
        lwd = c(2, 1))  # 线条宽度
 
 #DCA
-#针对3个模型创建3个概率和实际结果一一对应的数据集
+# Create three datasets for 3 models with corresponding probabilities and actual results
 data_XG <- data.frame(
   true_outcome = all_actuals_XG,
   xgb_prob = all_preds_XG
@@ -46,32 +46,30 @@ data_CAT <- data.frame(
 )
 write.csv(data_CAT,"data_CAT.csv")
 
-#将3个表用EXCEL合并为data_DCA.csv
+# Merge the three tables into data_DCA.csv using EXCEL
 
 datadca = read.csv("data_DCA.csv")
 
-# 计算XGBoost模型的决策曲线
+# Calculate decision curve for models
 dc_xgb <- decision_curve(true_outcome ~ xgb_prob, 
                          data = datadca,
                          study.design = 'cohort', 
                          policy = 'opt-in',
                          thresholds = seq(0, 1, by = 0.01))
 
-# 计算LightGBM模型的决策曲线
 dc_lgb <- decision_curve(true_outcome ~ light_prob, 
                          data = datadca,
                          study.design = 'cohort', 
                          policy = 'opt-in',
                          thresholds = seq(0, 1, by = 0.01))
 
-# 计算CatBoost模型的决策曲线
 dc_cat <- decision_curve(true_outcome ~ cat_prob, 
                          data = datadca, 
                          study.design = 'cohort', 
                          policy = 'opt-in',
                          thresholds = seq(0, 1, by = 0.01))
 
-# 绘制决策曲线
+# Plot decision curves
 str(dc_xgb)
 
 plot_decision_curve(list(dc_lgb, dc_xgb, dc_cat),
@@ -84,8 +82,8 @@ plot_decision_curve(list(dc_lgb, dc_xgb, dc_cat),
                     lwd = c(3, 3, 3, 2, 1))  # 线条宽度
 title(main = "DCA curve")
 
-#校准曲线
-#首先为不同的机器学习模型（XGBoost、LightGBM、CatBoost）创建了包含实际标签和预测概率的数据框：
+# Calibration curve
+# First, data frames containing actual labels and predicted probabilities are created for different machine learning models (XGBoost, LightGBM, CatBoost)
 predictions_xgb  <- data.frame(
   actual = all_actuals_XG,
  .pred_pass = all_preds_XG
@@ -102,49 +100,47 @@ predictions_cat  <- data.frame(
   actual = all_actuals_CAT,
  .pred_pass = all_preds_CAT
 )
-#将catboost模型对数几率转换为预测概率
+# Convert the log odds from the CatBoost model to predicted probabilities
 predictions_cat <- predictions_cat %>%
   mutate(.pred_pass = 1 / (1 + exp(-.pred_pass)))
 #write.csv(data_CAT,"data_CAT.csv")
 
-#合并预测结果
+#merge
 combined_data <- data.frame(
-  actual = predictions_xgb$actual, # 假设所有数据框的actual列是相同的
+  actual = predictions_xgb$actual, 
   pred_xgb = predictions_xgb$.pred_pass,
   pred_lgb = predictions_lgb$.pred_pass,
   pred_cat = predictions_cat$.pred_pass
 )
 
-#计算
+
 brier_score <- mean((predictions_lgb$actual - predictions_lgb$.pred_pass)^2)
 
-# 为XGBoost模型评估性能和生成校准曲线
+# Assess performance and generate a calibration curve for models
 score_xgb <- Score(list(fit = predictions_xgb$.pred_pass),
                    formula = actual ~ 1,
                    data = predictions_xgb,
                    metrics = c("auc", "brier"),
-                   plots = "calibration",  # 确保这里是"calibration"
+                   plots = "calibration",  # "calibration"
                    B = 200)
 plot_xgb <- plotCalibration(score_xgb, times = 1, method = "nne")
 
 
-# 为LightGBM模型评估性能和生成校准曲线
 score_lgb <- Score(list(fit = predictions_lgb$.pred_pass),
                    formula = actual ~ 1,
                    data = predictions_lgb,
                    metrics = c("auc", "brier"),
-                   plots = "calibration",  # 确保这里是"calibration"
+                   plots = "calibration", 
                    B = 200)
-# 接下来，使用plotCalibration函数绘制校准图
+
 plot_lgb <- plotCalibration(score_lgb, method = "nne")
 
 
-# 为CatBoost模型评估性能和生成校准曲线
 score_cat <- Score(list(fit = predictions_cat$.pred_pass),
                    formula = actual ~ 1,
                    data = predictions_cat,
                    metrics = c("auc", "brier"),
-                   plots = "calibration",  # 确保这里是"calibration"
+                   plots = "calibration", 
                    B = 200)
 plot_cat <- plotCalibration(score_cat, method = "nne")
 
@@ -166,7 +162,7 @@ M = 50
 
 data_all <- plotCalibration(fit_all,plot = F, method = "nne")
 
-#合并曲线
+#merge plots
 plot_df <- bind_rows(data_all$plotFrames) %>% 
   mutate(fits = rep(c("XGBoost", "LightGBM", "CatBoost"), times=c(99, 101, 101)))
 
