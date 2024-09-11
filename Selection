@@ -1,0 +1,41 @@
+#feseR
+data4=read.csv('data307.csv')
+sum(is.na(data4))
+str(data4)
+
+# 准备数据
+features <- data4[, -ncol(data4)]  # 所有特征列
+sum(is.na(features))
+
+class <- data4[, ncol(data4)]  # 目标变量列，这里是KIQ400
+sum(is.na(class)) 
+
+# 数据标准化
+variances <- apply(features, 2, var)
+features <- features[, variances > 0]
+features <- scale(features, center = TRUE, scale = TRUE)
+rownames(features) <- 1:nrow(features)
+
+
+# 不进行数据标准化
+# 计算方差并筛选出方差大于0的列
+variances <- apply(features, 2, var)
+features <- features[, variances > 0]
+
+# 将特征数据转换为矩阵
+features_matrix <- as.matrix(features)
+rownames(features_matrix) <- 1:nrow(features_matrix)
+
+# 使用combineFS函数进行特征选择
+#根据是否进行数据标准化设置features = features/features_matrix
+# 设置单变量过滤为信息增益过滤 ('gain')，并设置n.percent参数控制返回的特征百分比
+# 设置多变量过滤为矩阵相关性过滤 ('mcorr')，并使用默认的maxcorr阈值0.75
+# 使用递归特征消除包装随机森林 ('rfe.rf') 作为包装方法
+results <- combineFS(features = features_matrix, class = class,
+                     univariate = "gain", n.percent = 0.75, zero.gain.out = TRUE,
+                     multivariate = "mcorr", maxcorr = 0.75,
+                     wrapper = "rfe.rf", number.cv = 10,
+                     group.sizes = seq(1,50,2), extfolds = 10,
+                     partition = 2/3)
+
+print(results)
