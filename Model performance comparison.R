@@ -1,62 +1,57 @@
 data123 <- read.csv("datax.csv")
-data123$group<- as.factor(data123$group)
+data123$group <- as.factor(data123$group)
 
-
-#选择要分析的指标
-# 正态性检验
+# Select metrics to analyze
+# Normality test
 shapiro_test_XG <- shapiro.test(data123$KAPPA[data123$group == "XG"])
-shapiro_test_LIGHT <- shapiro.test(data123$KAPPA[data123$group == "LIGHT"]) 
-shapiro_test_CatBoost <- shapiro.test(data123$KAPPA[data123$group == "CatBoost"]) 
+shapiro_test_LIGHT <- shapiro.test(data123$KAPPA[data123$group == "LIGHT"])
+shapiro_test_CatBoost <- shapiro.test(data123$KAPPA[data123$group == "CatBoost"])
 
-
-
-
-# 方差齐性检验
+# Test for homogeneity of variances
 levene_test <- car::leveneTest(KAPPA ~ group, data = data123)
 
-# 检验每组的正态性
+# Check the normality for each group
 normality_passed <- all(shapiro_test_XG$p.value > 0.05, shapiro_test_LIGHT$p.value > 0.05, shapiro_test_CatBoost$p.value > 0.05)
 
-# 检验方差齐性
+# Check for homogeneity of variances
 variance_homogeneity_passed <- !is.na(levene_test$`Pr(>F)`[1]) && levene_test$`Pr(>F)`[1] > 0.05
 
 if (normality_passed && variance_homogeneity_passed) {
-  # 如果数据符合正态分布且方差齐性，进行Fisher's ANOVA检验
+  # If data are normally distributed and variances are homogeneous, perform Fisher's ANOVA test
   anova_result <- aov(KAPPA  ~ group, data = data123)
 } else {
-  #如果数据符合正态分布但方差不齐，进行Welch's ANOVA检验
+  # If data are normally distributed but variances are not equal, perform Welch's ANOVA test
   oneway_test_result <- oneway.test(KAPPA ~ group, data = data123, var.equal = FALSE)
 }
 
-# 如果数据不符合正态分布且方差不齐，进行Kruskal-Wallis检验
+# If data do not meet normality and variances are not homogeneous, perform Kruskal-Wallis test
 kruskal_test_result <- kruskal.test(KAPPA ~ group, data = data123)
 
-#如果不能进行Fisher's ANOVA检验，那就检查正态性和方差齐性，再决定后续用什么检验（Welch's ANOVA检验，Kruskal-Wallis检验2选1）
+# If Fisher's ANOVA test is not applicable, check normality and homogeneity of variances, then decide the subsequent test (choose between Welch's ANOVA test and Kruskal-Wallis test)
 print(shapiro_test_XG$p.value)
 print(shapiro_test_LIGHT$p.value)
 print(shapiro_test_CatBoost$p.value)
 print(variance_homogeneity_passed)
 
-
-# 输出统计检验结果（fisher's anova）
+# Output the statistical test results (Fisher's ANOVA)
 print(summary(anova_result))
-#事后分析
+# Post-hoc analysis
 tukey_result <- TukeyHSD(anova_result)
 print(tukey_result)
 
-#或Welch‘s anova
+# Or Welch's ANOVA
 print(oneway_test_result)
-# Welch's ANOVA检验具有显著性，进行Games-Howell事后比较
+# If Welch's ANOVA test shows significance, perform Games-Howell post-hoc comparison
 res <- gamesHowellTest(x = data123$Sensitivity, g = data123$group)
-# 查看Games-Howell测试的结果
+# View the results of the Games-Howell test
 print(res)
 
-# 或(Kruskal-Wallis)
+# Or (Kruskal-Wallis)
 print(kruskal_test_result)
-#Dunn事后分析（Bonferroni校正）
+# Dunn's post-hoc analysis (with Bonferroni correction)
 dunn_result <- dunn.test(x = data123$Sensitivity, g = data123$group, method = "bonferroni")
 
-#观察每组的均数±标准差
+# Observe the mean ± standard deviation for each group
 data123 %>%
   group_by(group) %>%
   summarise(
