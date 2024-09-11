@@ -122,8 +122,8 @@ best_params_list <- lapply(best_params_list, function(x) x[[1]])
 library(catboost)
 
 # 准备数据
-data5$KIQ400 <- as.factor(data5$KIQ400)  # 确保目标变量是因子类型
-train_pool <- catboost.load_pool(data = data5[, -which(names(data5) == "KIQ400")], label = data5$KIQ400)
+data6$ED <- as.factor(data6$ED)  # 确保目标变量是因子类型
+train_pool <- catboost.load_pool(data = data6[, -which(names(data6) == "ED")], label = data6$ED)
 
 # 定义参数网格
 param_grid <- expand.grid(
