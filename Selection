@@ -1,5 +1,5 @@
+data4=read.csv('dataRF.csv')
 #feseR
-data4=read.csv('data307.csv')
 sum(is.na(data4))
 str(data4)
 
@@ -7,7 +7,7 @@ str(data4)
 features <- data4[, -ncol(data4)]  # 所有特征列
 sum(is.na(features))
 
-class <- data4[, ncol(data4)]  # 目标变量列，这里是KIQ400
+class <- data4[, ncol(data4)]  # 目标变量列
 sum(is.na(class)) 
 
 # 数据标准化
@@ -16,6 +16,14 @@ features <- features[, variances > 0]
 features <- scale(features, center = TRUE, scale = TRUE)
 rownames(features) <- 1:nrow(features)
 
+results <- combineFS(features = features, class = class,
+                     univariate = "gain", n.percent = 0.75, zero.gain.out = TRUE,
+                     multivariate = "mcorr", maxcorr = 0.75,
+                     wrapper = "rfe.rf", number.cv = 10,
+                     group.sizes = seq(1,50,2), extfolds = 10,
+                     partition = 2/3)
+
+print(results)
 
 # 不进行数据标准化
 # 计算方差并筛选出方差大于0的列
@@ -39,3 +47,19 @@ results <- combineFS(features = features_matrix, class = class,
                      partition = 2/3)
 
 print(results)
+
+#Elastic Net
+data4=read.csv('data307.csv')
+y <- data4$KIQ400  # 确保目标变量是适当编码（0和1）
+x <- as.matrix(data4[, -which(colnames(data4) == "KIQ400")])  # 特征矩阵
+
+#通过设置alpha = 0.5来特定使用弹性网络
+fit <- glmnet(x, y, family = "binomial", alpha = 0.5)  # 使用弹性网络
+
+#通过交叉验证确定最佳的正则化参数lambda
+cv_fit <- cv.glmnet(x, y, family = "binomial", alpha = 0.5)
+plot(cv_fit)
+best_lambda <- cv_fit$lambda.min  # 选择使交叉验证误差最小的lambda
+
+#使用最优lambda查看保留下来的系数
+coef(cv_fit, s = "lambda.min")
