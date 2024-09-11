@@ -171,6 +171,51 @@ for(i in seq_along(folds)) {
 print(evaluation_metrics)
 print(f1_scores)
 
+#特征重要性---------
+importance <- lgb.importance(model)
+print(importance)
+
+# 对特征重要性排序，以便更好地可视化
+importance <- importance[order(-importance$Gain), ]
+ggplot(importance, aes(x = reorder(Feature, Gain), y = Gain)) +
+  geom_col(fill = "#82B29A") +
+  coord_flip() +  # 翻转坐标轴，使特征名字更易读
+  labs(x = "Feature", y = "Importance (Gain)", title = "Feature Importance") +
+  theme_minimal()+
+  theme(plot.title = element_text(hjust = 0.5),  # 居中标题
+        panel.background = element_blank(),  # 设置透明背景
+        panel.border = element_rect(colour = "black", fill=NA, size=1), # 添加黑色边框，无填充
+        plot.background = element_rect(fill = "transparent", colour = NA))   # 设置图表背景透明
+
+
+#SHAP---------------
+# 获取测试数据集
+test_indices <- setdiff(seq_len(nrow(data5)), folds[[3]])
+test_data <- data5[test_indices, ]
+
+#取其中阳性的数据集
+positive_test_data <- test_data[test_data[[target_col]] == 1, ]
+
+# 转换测试数据集为xgb.DMatrix
+positive_X_test_matrix <- as.matrix(positive_test_data[, -which(names(positive_test_data) == target_col)])
+
+# 计算阳性数据集的SHAP值
+positive_shap_values <- predict(model, positive_X_test_matrix, type = 'contrib')
+
+
+# 转换SHAP值为数据框，排除最后一列预期输出
+positive_shap_values_df <- as.data.frame(positive_shap_values[, -ncol(positive_shap_values)])
+
+# 创建shapviz对象，使用筛选后的测试数据集
+
+# 使用修正后的positive_X_test_matrix作为X_pred参数
+sv <- shapviz(object = model, X_pred = positive_X_test_matrix, X = positive_X_test_matrix)
+
+# 绘制SHAP值的总结图
+sv_plot <- sv_importance(sv, kind = "beeswarm", max_display = 23)
+print(sv_plot)
+
+
 #XGBoost
 data4=read.csv('data.csv')
 # 分离特征和目标变量
