@@ -1,26 +1,21 @@
 # Mode + PMM imputation
-#用众数对分类变量进行插补
-# mode_function计算分类变量众数
+# Impute categorical variables using the mode
+# mode_function computes the mode for categorical variables
 mode_function <- function(x) {
-  ux <- na.omit(x)  # 移除NA值
-  if(length(ux) == 0) return(NA_character_)  # 如果去除NA后没有数据，返回NA字符
-  mode_val <- names(sort(table(ux), decreasing = TRUE))[1]  # 计算并返回众数
-  return(mode_val)
 }
 
 factorCols <- c("RIDRETH1", "DMDEDUC","DMDMARTL","DMDHHSIZ","SMQ020", "ALQ110","PAD590","PAD320","KIQ400","BPQ040A","BPQ090D","DIQ010","MCQ220","KIQ081","KIQ101","KIQ106",
   "KIQ121","KIQ141","KIQ182","KIQ321","KIQ341","KIQ115","SXQ280","SXQ260","SXQ265","SXQ270","SXQ272","STI","CIDDSCOR","CIDGSCOR","CIDPSCOR","MentalHealth","ProstateExam",
   "CDQ001","CDQ010","CVDFITLV")
 
-
-#用众数进行插补
+# Impute using mode
 test6=read.csv('test6.csv') 
 
   test7 <- test6 %>%
     mutate(across(all_of(factorCols), ~{
-      mode_val <- mode_function(.)  # 对当前列计算众数
-      .[is.na(.)] <- mode_val  # 替换NA为众数
-      factor(., levels = unique(.))  # 确保结果为因子类型并重新设置水平
+      mode_val <- mode_function(.)  # Compute mode for the current column
+      .[is.na(.)] <- mode_val  # Replace NA with mode
+      factor(., levels = unique(.))  # Ensure the result is a factor type and reset levels
     }))  
   
   str(test7)
@@ -28,19 +23,19 @@ test6=read.csv('test6.csv')
 write.csv(test7,"D:/test7.csv")   
 test7=read.csv('test7.csv')  
 
-#pmm法对连续变量进行插补
-#pmm多重插补#----------------------
+# PMM imputation for continuous variables
+# Multiple imputation using PMM
 install.packages("stats")
 library(mice)
 
-# 定义补充缺失值函数
+# Define a function to impute missing values
 fix_na <- function(factorCols,data,n) {
   imp=mice(data,m=n,method="pmm", maxit = 5, printFlag = TRUE)
-  print(summary(imp)) # 输出mice插补对象的summary信息
-  print("插补完成") # 输出插补完成信息
+  print(summary(imp)) # Print summary information of the mice imputation object
+  print("Imputation completed") # Print imputation completion message
   datas = list()
   for(i in 1:n) datas[[i]] <- complete(imp, action=i)
-  print("数据集合并完成") # 输出数据集合并信息
+  print("Datasets merged") # Print datasets merged message
   colnames <- c()
   numeric_cols <- c()
   result <- 1 : length(datas[[1]][,1])
@@ -66,25 +61,24 @@ fix_na <- function(factorCols,data,n) {
   return (result)
 }
 
-# 调用函数补充缺失值，其中参数data是待插补数据，5表示5重插补
+# Call the function to impute missing values, where data is the data to be imputed, 5 for 5-fold imputation
 dataPMM <- fix_na(factorCols, test8 ,5)
 write.csv(dataPMM,"D:/dataPMM.csv")   
 
 
-
-#RF插补
+# RF imputation
 library(missRanger)
 
 test6=read.csv('test6.csv') 
-#将数据集中分类变量转变为因子类型
+# Convert categorical variables in the dataset to factor type
 
 
-# 批量将列设置为因子变量
+# Convert columns to factor variables in batch
 test6 <- test6 %>%
   mutate(across(all_of(factorCols), as.factor))
 str(test6)
 
-#使用missRanger进行插补
+# Use missRanger for imputation
 dataRF <- missRanger(test6, num.trees = 500, pmm.k = 5, verbose = 1, maxiter = 5)                           
 
 write.csv(dataRF,"dataRF.csv")    
