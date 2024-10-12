@@ -6,7 +6,7 @@
 library(dplyr)
 library(haven) 
 
-# Function to read and select specific columns from .XPT files
+# Function to read and select specific columns from .XPT files (in Data/XPT)
 demo.e <- read_xpt("DEMO_C.XPT")
 demo.e.data <- demo.e %>% 
   dplyr::select(SEQN,
@@ -198,7 +198,7 @@ data0102 <- full_join(data0102,PANIC.e.data,by="SEQN")
 data0102 <- full_join(data0102,CDQ.e.data,by="SEQN")
 data0102 <- full_join(data0102,CVX.e.data,by="SEQN")
 
-# Repeat the process for Year 0304r
+# Repeat the process for Year 0304 (In Data/XPT0304)
 demo.e <- read_xpt("DEMO_C.XPT")
 demo.e.data <- demo.e %>% 
   dplyr::select(SEQN,
