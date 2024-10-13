@@ -10,36 +10,39 @@ This project aims to utilize machine learning algorithms such as XGBoost, LightG
    - [install_packages.R](scripts/install_packages.R)
 
 2. **Data Preparation**  
-   - [data_collection.R](./data_collection.R)
+   - [data_collection.R](scripts/data_collection.R)
 
 3. **Data Preprocessing**
-   - [Outlier Treatment](./outlier_analysis.R)
-   - [Basic Characteristics of Respondents](./univariate_analysis_and_logarithmic_transformation.R)
-   - [Logarithmic Transformation](./univariate_analysis_and_logarithmic_transformation.R)
-   - [Dataset Splitting](./data_split_randomforest_imputation.R)
-   - [Handling Missing Values](./data_split_randomforest_imputation.R)
+   - [Outlier Treatment](scripts/outlier_analysis.R)
+   - [Basic Characteristics of Respondents](scripts/univariate_analysis_and_logarithmic_transformation.R)
+   - [Logarithmic Transformation](scripts/univariate_analysis_and_logarithmic_transformation.R)
+   - [Dataset Splitting](scripts/data_split_randomforest_imputation.R)
+   - [Handling Missing Values](scripts/data_split_randomforest_imputation.R)
 
 4. **Feature Selection**
-   - [feature_selection.R](./feature_selection.R)
+   - [feature_selection.R](scripts/feature_selection.R)
 
 5. **Model Training and Validation**
-   - [Hyperparameter Tuning](./hyperparameter_tuning.R)
-   - [XGBoost](./xgboost_model_training.R)
-   - [LightGBM](./lightgbm_model_training.R)
-   - [CatBoost](./catboost_model_training.R)
+   - [Hyperparameter Tuning](scripts/hyperparameter_tuning.R)
+   - [XGBoost](scripts/xgboost_model_training.R)
+   - [LightGBM](scripts/lightgbm_model_training.R)
+   - [CatBoost](scripts/catboost_model_training.R)
 
 6. **Model Performance Comparison on Train Set**
-   - [bootstrap_in_test_set.R](./bootstrap_in_test_set.R)
+   - [bootstrap_in_test_set.R](scripts/bootstrap_in_test_set.R)
 
 7. **Results Analysis**
-   - [XGBoost SHAP Importance](./XGBoost_SHAP_importance.R)
+   - [XGBoost SHAP Importance](scripts/XGBoost_SHAP_importance.R)
 
 8. **Sensitivity Analysis**
-   - [Sensitivity Analysis SMOTE](./Sensitivity_Analysis_SMOTE.R)
-   - [Sensitivity Analysis PMM](./Sensitivity_Analysis_PMM.R)
-   - [Sensitivity Analysis NOIMP](./Sensitivity_Analysis_NOIMP.R)
-   - [Sensitivity Analysis LT](./Sensitivity_Analysis_LT.R)
-   - [Sensitivity Analysis Comparison](./Sensitivity_Analysis_Comparison.R)
+   - [Sensitivity Analysis SMOTE](scripts/Sensitivity_Analysis_SMOTE.R)
+   - [Sensitivity Analysis PMM](scripts/Sensitivity_Analysis_PMM.R)
+   - [Sensitivity Analysis NOIMP](scripts/Sensitivity_Analysis_NOIMP.R)
+   - [Sensitivity Analysis LT](scripts/Sensitivity_Analysis_LT.R)
+   - [Sensitivity Analysis Comparison](scripts/Sensitivity_Analysis_Comparison.R)
+
+8. **Plots**
+   - [plots.R](scripts/plots.R)
 
 
 
