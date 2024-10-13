@@ -273,14 +273,6 @@ for(i in seq_along(folds)) {
   # Save the trained model
   saveRDS(model, file = paste0("xg_model_fold_pmm", i, ".rds"))
   
-  # Calculate ROC for training data
-  train_preds <- predict(model, as.matrix(train_data[, features]))
-  roc_result_train <- rocit(score = train_preds, class = as.factor(train_data[[target_col]]), negref = "0", method = "bin")
-  
-  # Print AUC for training data
-  auc_value_train <- roc_result_train$AUC
-  print(paste("Fold", i, "- Training AUC:", round(auc_value_train, 4)))
-  
   # Predict on validation data and calculate ROC
   pred <- predict(model, dtest)
   roc_result <- rocit(score = pred, class = as.factor(test_data[[target_col]]), negref = "0", method = "bin")
