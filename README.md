@@ -35,7 +35,7 @@ This project aims to utilize machine learning algorithms such as XGBoost, LightG
    - [XGBoost SHAP Importance](scripts/XGBoost_SHAP_importance.R)
 
 8. **Sensitivity Analysis**
-   - [Sensitivity Analysis SMOTE](scripts/Sensitivity_Analysis_SMOTE.R)
+   - [Sensitivity Analysis SMOTE](scripts/Sensitivity_analysis/Sensitivity_Analysis_SMOTE.R)
    - [Sensitivity Analysis PMM](scripts/Sensitivity_Analysis_PMM.R)
    - [Sensitivity Analysis NOIMP](scripts/Sensitivity_Analysis_NOIMP.R)
    - [Sensitivity Analysis LT](scripts/Sensitivity_Analysis_LT.R)
