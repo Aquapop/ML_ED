@@ -6,10 +6,10 @@ This project aims to utilize machine learning algorithms such as XGBoost, LightG
 
 ## Contents and code running order
 
-1.Environment Dependencies: 'install_packages.R'
-
-
-2.Data Preparation: 'data_collaction.R'
+#1.Environment Dependencies
+'install_packages.R'
+#2.Data Preparation
+'data_collaction.R'
 
 
 3.Data Preprocessing
