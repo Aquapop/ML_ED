@@ -7,7 +7,7 @@ library(caret)
 library(dplyr)          
 library(boot)            
 library(car)            
-library(rstatix)
+library(PMCMRplus)
 library(ufs)
 library(dunn.test)        
 
