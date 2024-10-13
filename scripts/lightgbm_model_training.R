@@ -112,10 +112,10 @@ for(i in seq_along(folds)) {
   # ------------------------ Training Set Evaluation ------------------------
   
   # Predict on the training set
-  train_preds <- predict(model, as.matrix(train_data[, features]))
+  train_preds_Light <- predict(model, as.matrix(train_data[, features]))
   
   # Calculate ROC AUC for the training set
-  roc_result_train <- rocit(score = train_preds, class = as.factor(train_data[[target_col]]), negref = "0", method = "bin")
+  roc_result_train <- rocit(score = train_preds_Light, class = as.factor(train_data[[target_col]]), negref = "0", method = "bin")
   
   # Print AUC for the training set
   auc_value_train <- roc_result_train$AUC
@@ -124,10 +124,10 @@ for(i in seq_along(folds)) {
   # ------------------------ validation Set Evaluation ------------------------
   
   # Predict on the validation set
-  pred <- predict(model, as.matrix(test_data[, features]))
+  validation_preds_Light <- predict(model, as.matrix(test_data[, features]))
   
   # Calculate ROC AUC for the validation set
-  roc_result <- rocit(score = pred, class = as.factor(test_data[[target_col]]), negref = "0", method = "bin")
+  roc_result <- rocit(score = validation_preds_Light, class = as.factor(test_data[[target_col]]), negref = "0", method = "bin")
   
   # Print AUC for the validation set
   auc_value <- roc_result$AUC
