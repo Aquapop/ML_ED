@@ -44,7 +44,8 @@ This project aims to utilize machine learning algorithms such as XGBoost, LightG
 8. **Plots**
    - [plots.R](scripts/plot.R)
 
-
+## Flowchart
+![image](https://github.com/Aquapop/ML_ED/blob/main/flowchart/Figure%201.png)
 
 
 
