@@ -36,10 +36,10 @@ This project aims to utilize machine learning algorithms such as XGBoost, LightG
 
 8. **Sensitivity Analysis**
    - [Sensitivity Analysis SMOTE](scripts/Sensitivity_analysis/Sensitivity_Analysis_SMOTE.R)
-   - [Sensitivity Analysis PMM](scripts/Sensitivity_Analysis_PMM.R)
-   - [Sensitivity Analysis NOIMP](scripts/Sensitivity_Analysis_NOIMP.R)
-   - [Sensitivity Analysis LT](scripts/Sensitivity_Analysis_LT.R)
-   - [Sensitivity Analysis Comparison](scripts/Sensitivity_Analysis_Comparison.R)
+   - [Sensitivity Analysis PMM](scripts/Sensitivity_analysis/Sensitivity_Analysis_PMM.R)
+   - [Sensitivity Analysis NOIMP](scripts/Sensitivity_analysis/Sensitivity_Analysis_NOIMP.R)
+   - [Sensitivity Analysis LT](scripts/Sensitivity_analysis/Sensitivity_Analysis_LT.R)
+   - [Sensitivity Analysis Comparison](scripts/Sensitivity_analysis/Sensitivity_Analysis_Comparison.R)
 
 8. **Plots**
    - [plots.R](scripts/plots.R)
