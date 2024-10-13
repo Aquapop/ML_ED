@@ -27,6 +27,15 @@ features_XG <- setdiff(names(train_data_final_XG), target_col)
 # Define label
 label_XG <- train_data_final_XG[[target_col]]
 
+#prediction on the test set
+test_preds_XG <-predict(best_model_XG_RF, as.matrix(test_data_final[,features]))
+
+# 计算AUC
+roc_result <- rocit(score = test_preds_XG, class = as.factor(test_data_final[[target_col]]), negref = "0", method = "bin")
+auc_value <- roc_result$AUC
+print(paste("Test AUC:", auc_value))
+
+
 # Define bootstrap function for XGBoost
 bootstrap_metrics_XG_RF <- function(data, indices) {
   test_sample <- data[indices, ]  # Resampled test set
@@ -73,6 +82,15 @@ features_Light <- setdiff(names(train_data_final_Light), target_col)
 
 # Define label
 label_Light <- train_data_final_Light[[target_col]]
+
+#prediction on the test set
+test_preds_Light <-predict(best_model_Light_RF, as.matrix(test_data_final[,features]))
+
+# 计算AUC
+roc_result <- rocit(score = test_preds_Light, class = as.factor(test_data_final[[target_col]]), negref = "0", method = "bin")
+auc_value <- roc_result$AUC
+print(paste("Test AUC:", auc_value))
+
 
 # Define bootstrap function for LightGBM
 bootstrap_metrics_Light_RF <- function(data, indices) {
@@ -133,6 +151,15 @@ features_CAT <- setdiff(names(train_data_final_CAT), target_col)
 
 # Define label
 label_CAT <- train_data_final_CAT[[target_col]]
+
+test_pool_1 <- catboost.load_pool(data = test_data_final_CAT[, features, drop = FALSE], label = test_data_final_CAT[[target_col]])
+test_preds_CAT <-catboost.predict(best_model_CAT_RF, test_pool_1)
+
+# 计算AUC
+roc_result <- rocit(score = test_preds_CAT, class = as.factor(test_data_final_CAT[[target_col]]), negref = "0", method = "bin")
+auc_value <- roc_result$AUC
+print(paste("Test AUC:", auc_value))
+
 
 # Define bootstrap function for CatBoost
 bootstrap_metrics_CAT_RF <- function(data, indices) {
