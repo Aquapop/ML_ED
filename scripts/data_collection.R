@@ -1,4 +1,4 @@
-# data_collaction.R
+# data_collection.R
 # This script extracts data from multiple .XPT files, selects required columns and merges the data(data01_04.csv).
 # performs data cleaning, and exports the cleaned data as CSV files (test 5).
 
