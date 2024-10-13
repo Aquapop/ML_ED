@@ -7,21 +7,28 @@ This project aims to utilize machine learning algorithms such as XGBoost, LightG
 ## Contents and code running order
 
 1.Environment Dependencies: 'install_packages.R'
+
 2.Data Preparation: 'data_collaction.R'
+
 3.Data Preprocessing
   Outlier Treatment:'outlier_analysis.R'
   Basic characteristics of respondents:'univariate_analysis and logarithmic transformation.R'
   logarithmic transformation:'univariate_analysis and logarithmic transformation.R'
   Dataset Splitting:'data_split_randomforest_imputation.R'
   Handling Missing Values:'data_split_randomforest_imputation.R'
+
 4.Feature Selection:'feature_selection.R'
+
 5.Model Training and Validation:
   hyperparameter_tuning:'hyperparameter_tuning.R'
   xgboost:'xgboost_model_training.R'
   lightgbm:'lightgbm_model_training.R'
   catboost:'catboost_model_training.R'
+
 6:Model Performance Comparison on train set:'bootstrap_in_test_set.R'
+
 7:Results Analysis:'XGBoost_SHAP_importance.R'
+
 8:Sensitivity Analysis:
   'Sensitivity_Analysis_SMOTE.R'
   'Sensitivity_Analysis_PMM.R'
