@@ -6,8 +6,7 @@ library(dplyr)
 library(rms)
 library(rmda)
 
-#确定最好的模型是哪一折之后，重新训练该折模型，得到train_preds，validation_preds，并在test set上进行预测，得到test_preds，具体训练方式见
-#xgboost_model_training.R; lightgbm_model_training.R; CatBoost_model_training.R
+#After determining which fold is the best model, retrain that fold model to get train_preds, validation_preds, and make predictions on the test set to get test_preds, see xgboost_model_training.R; lightgbm_model_ training.R; CatBoost_model_training.
 
 target_col <- "ED" 
 test_data_final = read.csv("dataRF_test_flitered.csv")
