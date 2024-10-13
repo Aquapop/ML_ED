@@ -113,18 +113,18 @@ for(i in seq_along(folds)) {
   auc_train <- roc_result_train$AUC
   print(paste("Fold", i, "Training AUC:", auc_train))
   
-  # ------------------------ Testing Set Evaluation ------------------------
+  # ------------------------ validation Set Evaluation ------------------------
   
-  # Predict on the testing set
-  pred <- predict(model, dtest)
+  # Predict on the validation set
+  validation_pred_XG <- predict(model, dtest)
   
   # Calculate ROC AUC for the testing set
-  roc_result <- rocit(score = pred, class = as.factor(test_data[[target_col]]), negref = "0", method = "bin")
-  pred_class <- ifelse(pred > 0.5, "1", "0")
+  roc_result <- rocit(score = validation_pred_XG, class = as.factor(test_data[[target_col]]), negref = "0", method = "bin")
+  pred_class <- ifelse(validation_pred_XG > 0.5, "1", "0")
   
   # Print AUC for the testing set
   auc_test <- roc_result$AUC
-  print(paste("Fold", i, "Testing AUC:", auc_test))
+  print(paste("Fold", i, "validation AUC:", auc_test))
   
   # ------------------------ Plot ROC Curve ------------------------
   
@@ -136,10 +136,6 @@ for(i in seq_along(folds)) {
   }
   
   # ------------------------ Confusion Matrix and F1 Score ------------------------
-  
-  # Convert probabilities to class labels based on a threshold of 0.5
-  pred_class <- ifelse(pred > 0.5, "1", "0")
-  
   # Convert to factor for confusion matrix
   pred_class <- factor(pred_class, levels = c("1", "0"))
   test_class <- factor(as.character(test_data[[target_col]]), levels = c("1", "0"))
