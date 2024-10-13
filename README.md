@@ -26,7 +26,7 @@ This project aims to utilize machine learning algorithms such as XGBoost, LightG
    - [Hyperparameter Tuning](scripts/hyperparameter_tuning.R)
    - [XGBoost](scripts/xgboost_model_training.R)
    - [LightGBM](scripts/lightgbm_model_training.R)
-   - [CatBoost](scripts/Catboost_model_training.R)
+   - [CatBoost](scripts/CatBoost_model_training.R)
 
 6. **Model Performance Comparison on Train Set**
    - [bootstrap_in_test_set.R](scripts/bootstrap_in_test_set.R)
