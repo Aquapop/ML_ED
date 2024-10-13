@@ -42,7 +42,7 @@ This project aims to utilize machine learning algorithms such as XGBoost, LightG
    - [Sensitivity Analysis Comparison](scripts/Sensitivity_analysis/Sensitivity_Analysis_Comparison.R)
 
 8. **Plots**
-   - [plots.R](scripts/plots.R)
+   - [plots.R](scripts/plot.R)
 
 
 
