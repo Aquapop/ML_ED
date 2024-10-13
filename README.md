@@ -14,7 +14,7 @@ This project aims to utilize machine learning algorithms such as XGBoost, LightG
 
 3. **Data Preprocessing**
    - [Outlier Treatment](scripts/outlier_analysis.R)
-   - [Basic Characteristics of Respondents](scripts/univariate_analysis and logarithmic transformation.R)
+   - [Basic Characteristics of Respondents](scripts/univariate_analysis_and_logarithmic_transformation.R)
    - [Logarithmic Transformation](scripts/univariate_analysis_and_logarithmic_transformation.R)
    - [Dataset Splitting](scripts/data_split_randomforest_imputation.R)
    - [Handling Missing Values](scripts/data_split_randomforest_imputation.R)
