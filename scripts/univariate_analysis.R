@@ -172,10 +172,48 @@ for (data in summary_results) {
 # View the organized summary results
 print(final_summary)
 
+# Export the final results as CSV files
+write.csv(final_results, "outputs/chi_square_results.csv", row.names = FALSE)
+write.csv(final_summary, "outputs/t_test_results.csv", row.names = FALSE)
+
 # Based on the above final_summary, t_test_results, chi_tests_results, and final_results,
 # create the baseline analysis result Table 1 
 # And remove features without statistical differences from the univariate analysis to get data105
 
-# Export the final results as CSV files
-write.csv(final_results, "outputs/chi_square_results.csv", row.names = FALSE)
-write.csv(final_summary, "outputs/t_test_results.csv", row.names = FALSE)
+#--------------------------------------------------Logarithmic Transformation-------------------------------------------------------
+factorCols <- c(
+  "DMDEDUC",
+  "SMQ020",
+  "PAD590",
+  "PAD320",
+  "ED",
+  "BPQ040A",
+  "BPQ090D",
+  "DIQ010",
+  "MCQ220",
+  "KIQ081",
+  "KIQ101",
+  "KIQ106",
+  "KIQ121",
+  "KIQ141",
+  "KIQ182",
+  "KIQ321",
+  "KIQ341",
+  "SXQ280",
+  "ProstateExam",
+  "CDQ001",
+  "CDQ010")
+
+for (i in factorCols) {
+  data105[, i] <- as.factor(data105[, i])
+}  
+
+str(data105)
+
+#Logarithmic Transformation
+data107 <- data105 %>%
+  mutate_if(is.numeric, ~log(. + 1))
+
+
+write.csv(data107, "outputs/data107.csv", row.names = FALSE)
+
