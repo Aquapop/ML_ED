@@ -132,10 +132,10 @@ for(i in seq_along(folds)) {
   # ------------------------ Training Set Evaluation ------------------------
   
   # Predict on the training set
-  train_preds <- catboost.predict(model, train_pool)
+  train_preds_CAT <- catboost.predict(model, train_pool)
   
   # Calculate ROC AUC for the training set
-  roc_result_train <- rocit(score = train_preds, class = as.factor(train_data[[target_col]]), negref = "0", method = "bin")
+  roc_result_train <- rocit(score = train_preds_CAT, class = as.factor(train_data[[target_col]]), negref = "0", method = "bin")
   
   # Append training predictions and actuals
   # Uncomment if you want to store training predictions and actuals
@@ -149,10 +149,10 @@ for(i in seq_along(folds)) {
   # ------------------------ validation Set Evaluation ------------------------
   
   # Predict on the testing set
-  pred <- catboost.predict(model, test_pool)
+  validation_preds_CAT <- catboost.predict(model, test_pool)
   
   # Calculate ROC AUC for the validation set
-  roc_result <- rocit(score = pred, class = as.factor(test_data[[target_col]]), negref = "0", method = "bin")
+  roc_result <- rocit(score = validation_preds_CAT, class = as.factor(test_data[[target_col]]), negref = "0", method = "bin")
   
   # Print AUC for the validation set
   auc_value <- roc_result$AUC
