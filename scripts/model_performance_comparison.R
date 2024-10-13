@@ -33,9 +33,9 @@ write.csv(data123, "outputs/model_performance_comparison.csv", row.names = FALSE
 # ------------------------ Statistical Testing ------------------------
 
 # Perform Normality Tests
-shapiro_test_CatBoost <- shapiro.test(data123$Kappa[data123$Model == "CatBoost"])
-shapiro_test_LIGHT <- shapiro.test(data123$Kappa[data123$Model == "LightGBM"]) 
-shapiro_test_XG <- shapiro.test(data123$Kappa[data123$Model == "XGBoost"]) 
+shapiro_test_CatBoost <- shapiro.test(data123$"metrics"[data123$Model == "CatBoost"])
+shapiro_test_LIGHT <- shapiro.test(data123$"metrics"[data123$Model == "LightGBM"]) 
+shapiro_test_XG <- shapiro.test(data123$"metrics"[data123$Model == "XGBoost"]) 
 
 # Perform Levene's Test for Homogeneity of Variance
 levene_test <- car::leveneTest("metrics" ~ Model, data = data123)
