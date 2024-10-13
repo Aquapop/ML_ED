@@ -1,7 +1,8 @@
-# univariate_analysis.R
+# univariate_analysis and logarithmic transformation.R
 # This script performs univariate analysis, including Chi-square tests and t-tests,
 # to evaluate the association between various variables and the target variable "KIQ400".
 # It also generates data distributions and statistical summaries, and exports the results as CSV files.
+# logarithmic transformation were applyed to the data
 
 # Load necessary libraries
 library(survey)
