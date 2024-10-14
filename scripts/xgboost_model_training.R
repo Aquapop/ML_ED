@@ -2,13 +2,6 @@
 # This script trains an XGBoost model using stratified k-fold cross-validation.
 # It evaluates model performance using ROC AUC and F1 scores, and saves the best model.
 
-# Load necessary libraries
-library(xgboost)
-library(caret)
-library(doParallel)
-library(foreach)
-library(ROCit)
-library(dplyr)
 
 # ------------------------ Load Data ------------------------
 
@@ -73,8 +66,8 @@ for(i in seq_along(folds)) {
   test_data <- train_data_final[test_indices, ]
   
   # Prepare DMatrix for XGBoost
-  dtrain <- xgb.DMatrix(data = as.matrix(train_data[, features]), label = fold_train_data[[target_col]])
-  dtest <- xgb.DMatrix(data = as.matrix(test_data[, features]), label = fold_test_data[[target_col]])
+  dtrain <- xgb.DMatrix(data = as.matrix(train_data[, features]), label = train_data[[target_col]])
+  dtest <- xgb.DMatrix(data = as.matrix(test_data[, features]), label = test_data[[target_col]])
   
   # Define XGBoost parameters based on hyperparameter tuning results
   params <- list(
@@ -87,7 +80,7 @@ for(i in seq_along(folds)) {
     min_child_weight = 4,    # Minimum sum of instance weight needed in a child
     subsample = 0.75,        # Subsample ratio of the training instances
     colsample_bytree = 0.5,  # Subsample ratio of columns when constructing each tree
-    scale_pos_weight = sum(fold_train_data[[target_col]] == 0) / sum(fold_train_data[[target_col]] == 1)  # Balancing positive and negative classes
+    scale_pos_weight = sum(train_data[[target_col]] == 0) / sum(train_data[[target_col]] == 1)  # Balancing positive and negative classes
   )
   
   # Train the XGBoost model
@@ -118,11 +111,11 @@ for(i in seq_along(folds)) {
   # Predict on the validation set
   validation_pred_XG <- predict(model, dtest)
   
-  # Calculate ROC AUC for the testing set
+  # Calculate ROC AUC for the validation set
   roc_result <- rocit(score = validation_pred_XG, class = as.factor(test_data[[target_col]]), negref = "0", method = "bin")
   pred_class <- ifelse(validation_pred_XG > 0.5, "1", "0")
   
-  # Print AUC for the testing set
+  # Print AUC for the validation set
   auc_test <- roc_result$AUC
   print(paste("Fold", i, "validation AUC:", auc_test))
   
