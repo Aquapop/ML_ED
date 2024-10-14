@@ -2,14 +2,6 @@
 # This script performs sensitivity analysis without Logarithmic Transformation
 # It includes data preparation, feature selection, model training with cross-validation, and bootstrap analysis.
 
-# Load necessary libraries
-library(caret)
-library(dplyr)
-library(missRanger)
-library(lightgbm)
-library(xgboost)
-library(catboost)
-
 # Set seed for reproducibility
 set.seed(234)
 
