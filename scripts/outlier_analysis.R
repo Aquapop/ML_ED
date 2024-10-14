@@ -37,6 +37,8 @@ factorCols <- c(
   "ProstateExam"
 )
 
+test5 = read.csv("test5.csv")
+
 # Display the structure of the dataset
 str(test5)
 
@@ -107,7 +109,7 @@ df = test5
 results <- unusual_num_multi(var_list, df) # Call the function
 
 # Variables with outliers, excluding specific variables（which do not have outliers ）
-var_weird <- setdiff(var_list, c("WTMEC2YR", "SDMVPSU", "SDMVSTRA", "INDFMPIR", "DMDHHSIZ", "CVDFITLV")) 
+var_weird <- setdiff(var_list, c("WTMEC2YR", "SDMVPSU", "SDMVSTRA", "INDFMPIR")) 
 
 # Function to handle outliers by capping them at the calculated bounds
 resolve_unusual <- function(colnames, df) {
@@ -128,9 +130,8 @@ resolve_unusual <- function(colnames, df) {
 
 # Apply outlier handling function
 data105 <- resolve_unusual(var_weird, df)
-write.csv(data105, "outputs/data105.csv", row.names = FALSE)
+write.csv(data104, "data105.csv", row.names = FALSE)
 
 # Verify the outlier situation after handling
-df = data105
+df = data104
 results <- unusual_num_multi(var_list, df) # Call the function again
-
