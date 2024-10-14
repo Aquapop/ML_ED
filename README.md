@@ -14,19 +14,15 @@ This project aims to utilize machine learning algorithms such as XGBoost, LightG
    - outputs：[data01_04.csv](https://github.com/Aquapop/ML_ED/blob/main/Data/output/data01_04.csv);[test5.csv](https://github.com/Aquapop/ML_ED/blob/main/Data/output/test5.csv)
 
 3. **Data Preprocessing**
-   - [Outlier Treatment](scripts/outlier_analysis.R)
-   - output:[data104.csv](https://github.com/Aquapop/ML_ED/blob/main/Data/output/data104.csv)
+   - [Outlier Treatment](scripts/outlier_analysis.R) output:[data104.csv](https://github.com/Aquapop/ML_ED/blob/main/Data/output/data104.csv)
      
-   - [Basic Characteristics of Respondents](scripts/univariate_analysis_and_logarithmic_transformation.R)
-   - outputs:[data105.csv](https://github.com/Aquapop/ML_ED/blob/main/Data/output/data105.csv);[chi_square_results.csv](https://github.com/Aquapop/ML_ED/blob/main/Data/output/chi_square_results.csv);[t_test_results.csv](https://github.com/Aquapop/ML_ED/blob/main/Data/output/t_test_results.csv)
+   - [Basic Characteristics of Respondents](scripts/univariate_analysis_and_logarithmic_transformation.R) outputs:[data105.csv](https://github.com/Aquapop/ML_ED/blob/main/Data/output/data105.csv);[chi_square_results.csv](https://github.com/Aquapop/ML_ED/blob/main/Data/output/chi_square_results.csv);[t_test_results.csv](https://github.com/Aquapop/ML_ED/blob/main/Data/output/t_test_results.csv)
      
-   - [Logarithmic Transformation](scripts/univariate_analysis_and_logarithmic_transformation.R)
-   - output:[data107.csv](https://github.com/Aquapop/ML_ED/blob/main/Data/output/data107.csv)
+   - [Logarithmic Transformation](scripts/univariate_analysis_and_logarithmic_transformation.R) output:[data107.csv](https://github.com/Aquapop/ML_ED/blob/main/Data/output/data107.csv)
      
-   - [Dataset Splitting](scripts/data_split_randomforest_imputation.R)
-   - outputs:[data107_train.csv](https://github.com/Aquapop/ML_ED/blob/main/Data/output/data107_train.csv);[data107_test.csv](https://github.com/Aquapop/ML_ED/blob/main/Data/output/data107_test.csv)
+   - [Dataset Splitting](scripts/data_split_randomforest_imputation.R) outputs:[data107_train.csv](https://github.com/Aquapop/ML_ED/blob/main/Data/output/data107_train.csv);[data107_test.csv](https://github.com/Aquapop/ML_ED/blob/main/Data/output/data107_test.csv)
      
-   - [Handling Missing Values](scripts/data_split_randomforest_imputation.R)
+   - [Handling Missing Values](scripts/data_split_randomforest_imputation.R) outputs:[dataRF_test.csv](https://github.com/Aquapop/ML_ED/blob/main/Data/output/dataRF_test.csv);[dataRF_train.csv](https://github.com/Aquapop/ML_ED/blob/main/Data/output/dataRF_train.csv)
 
 4. **Feature Selection**
    - [feature_selection.R](scripts/feature_selection.R)
