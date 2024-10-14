@@ -2,14 +2,6 @@
 # This script performs sensitivity analysis without using the imputation method
 # It includes data preparation, feature selection, model training with cross-validation, and bootstrap analysis.
 
-# Load necessary libraries
-library(caret)
-library(lightgbm)
-library(xgboost)
-library(catboost)
-library(ROCit)
-library(boot)
-library(caret)
 
 # Set seed for reproducibility
 set.seed(234)
