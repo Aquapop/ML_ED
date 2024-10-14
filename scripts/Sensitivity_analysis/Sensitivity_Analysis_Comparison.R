@@ -3,18 +3,6 @@
 # It includes data preprocessing, imputation using missRanger, Logarithmic Transformation， SMOTE
 
 
-# Load necessary libraries
-library(caret)
-library(dplyr)
-library(missRanger)
-library(lightgbm)
-library(xgboost)
-library(catboost)
-library(car)             # For Levene's Test
-library(dunn.test)      # For Dunn's Test
-library(DescTools) 
-library(PMCMRplus)# For Games-Howell Test
-
 
 
 # -----------------------------------
@@ -23,15 +11,15 @@ library(PMCMRplus)# For Games-Howell Test
 
 # Combine results from different models
 data123 <- data.frame(
-  AUC = c(results_metricsSMOTE_RF$t[,1], results_metrics1$t[,1], results_metricsRF$t[,1]),
-  Sensitivity = c(results_metricsSMOTE_RF$t[,2], results_metrics1$t[,2], results_metricsRF$t[,2]),
-  Specificity = c(results_metricsSMOTE_RF$t[,3], results_metrics1$t[,3], results_metricsRF$t[,3]),
-  PPV = c(results_metricsSMOTE_RF$t[,4], results_metrics1$t[,4], results_metricsRF$t[,4]),
-  NPV = c(results_metricsSMOTE_RF$t[,5], results_metrics1$t[,5], results_metricsRF$t[,5]),
-  F1_Score_Pos = c(results_metricsSMOTE_RF$t[,6], results_metrics1$t[,6], results_metricsRF$t[,6]),
-  F1_Score_Neg = c(results_metricsSMOTE_RF$t[,7], results_metrics1$t[,7], results_metricsRF$t[,7]),
-  Accuracy = c(results_metricsSMOTE_RF$t[,8], results_metrics1$t[,8], results_metricsRF$t[,8]),
-  KAPPA = c(results_metricsSMOTE_RF$t[,9], results_metrics1$t[,9], results_metricsRF$t[,9]),
+  AUC = c(results_metricsSMOTE_RF$t[,1], results_metrics1$t[,1], results_metrics_XG_RF$t[,1]),
+  Sensitivity = c(results_metricsSMOTE_RF$t[,2], results_metrics1$t[,2], results_metrics_XG_RF$t[,2]),
+  Specificity = c(results_metricsSMOTE_RF$t[,3], results_metrics1$t[,3], results_metrics_XG_RF$t[,3]),
+  PPV = c(results_metricsSMOTE_RF$t[,4], results_metrics1$t[,4], results_metrics_XG_RF$t[,4]),
+  NPV = c(results_metricsSMOTE_RF$t[,5], results_metrics1$t[,5], results_metrics_XG_RF$t[,5]),
+  F1_Score_Pos = c(results_metricsSMOTE_RF$t[,6], results_metrics1$t[,6], results_metrics_XG_RF$t[,6]),
+  F1_Score_Neg = c(results_metricsSMOTE_RF$t[,7], results_metrics1$t[,7], results_metrics_XG_RF$t[,7]),
+  Accuracy = c(results_metricsSMOTE_RF$t[,8], results_metrics1$t[,8], results_metrics_XG_RF$t[,8]),
+  KAPPA = c(results_metricsSMOTE_RF$t[,9], results_metrics1$t[,9], results_metrics_XG_RF$t[,9]),
   Model = factor(rep(c("SMOTE", "XGBoost", "RF"), each = 1000))
 )
 
@@ -112,15 +100,15 @@ data123 %>%
 
 # Combine results from different models
 data123_pmm <- data.frame(
-  AUC = c(results_metricsRF$t[,1], results_metrics1$t[,1], results_metricsPMM$t[,1]),
-  Sensitivity = c(results_metricsRF$t[,2], results_metrics1$t[,2], results_metricsPMM$t[,2]),
-  Specificity = c(results_metricsRF$t[,3], results_metrics1$t[,3], results_metricsPMM$t[,3]),
-  PPV = c(results_metricsRF$t[,4], results_metrics1$t[,4], results_metricsPMM$t[,4]),
-  NPV = c(results_metricsRF$t[,5], results_metrics1$t[,5], results_metricsPMM$t[,5]),
-  F1_Score_Pos = c(results_metricsRF$t[,6], results_metrics1$t[,6], results_metricsPMM$t[,6]),
-  F1_Score_Neg = c(results_metricsRF$t[,7], results_metrics1$t[,7], results_metricsPMM$t[,7]),
-  Accuracy = c(results_metricsRF$t[,8], results_metrics1$t[,8], results_metricsPMM$t[,8]),
-  KAPPA = c(results_metricsRF$t[,9], results_metrics1$t[,9], results_metricsPMM$t[,9]),
+  AUC = c(results_metrics_XG_RF$t[,1], results_metrics1$t[,1], results_metricsPMM$t[,1]),
+  Sensitivity = c(results_metrics_XG_RF$t[,2], results_metrics1$t[,2], results_metricsPMM$t[,2]),
+  Specificity = c(results_metrics_XG_RF$t[,3], results_metrics1$t[,3], results_metricsPMM$t[,3]),
+  PPV = c(results_metrics_XG_RF$t[,4], results_metrics1$t[,4], results_metricsPMM$t[,4]),
+  NPV = c(results_metrics_XG_RF$t[,5], results_metrics1$t[,5], results_metricsPMM$t[,5]),
+  F1_Score_Pos = c(results_metrics_XG_RF$t[,6], results_metrics1$t[,6], results_metricsPMM$t[,6]),
+  F1_Score_Neg = c(results_metrics_XG_RF$t[,7], results_metrics1$t[,7], results_metricsPMM$t[,7]),
+  Accuracy = c(results_metrics_XG_RF$t[,8], results_metrics1$t[,8], results_metricsPMM$t[,8]),
+  KAPPA = c(results_metrics_XG_RF$t[,9], results_metrics1$t[,9], results_metricsPMM$t[,9]),
   Model = factor(rep(c("RF", "XGBoost", "PMM"), each = 1000))
 )
 
