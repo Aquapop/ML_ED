@@ -462,7 +462,6 @@ test3 <- test2 %>%
   as.data.frame()
 
 ##exclude respondents with Marital Status/physical activity/alcohol/smoking/ED who answered "don't know" or "refused"
-#婚姻/活动/吸烟饮酒  ED量表中不知道和拒绝情况的排除
 test4 <- test3 %>%
   filter(DMDMARTL != 77 | is.na(DMDMARTL)) %>%
   filter(DMDMARTL != 99 | is.na(DMDMARTL)) %>%
