@@ -55,9 +55,3 @@ This project aims to utilize machine learning algorithms such as XGBoost, LightG
 - **R:** Ensure that R (version 4.4 or higher) is installed on your system. You can download R from [CRAN](https://cran.r-project.org/).
 - **RStudio (Optional):** While not mandatory, RStudio provides a user-friendly interface for working with R.
 
-## Installation Steps
-
-1. **Clone the Repository:**
-
-   ```bash
-   git clone https://github.com/yourusername/your-repo-name.git
