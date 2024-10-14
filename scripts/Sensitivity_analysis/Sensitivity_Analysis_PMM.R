@@ -195,8 +195,8 @@ write.csv(test_data_PMM, "dataPMM_test_filtered.csv")
 # Model Training Preparation
 
 # Read the filtered datasets
-test_data_final <- read.csv("dataPMM_test_filtered.csv")
-train_data_final <- read.csv("dataPMM_train_filtered.csv")
+test_data_final <- read.csv("dataPMM_test_flitered.csv")
+train_data_final <- read.csv("dataPMM_train_flitered.csv")
 
 # Proceed with model training using train_data_final and test_data_final.
 
