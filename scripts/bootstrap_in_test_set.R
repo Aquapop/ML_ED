@@ -2,15 +2,6 @@
 # This script performs bootstrap evaluation on the test set for XGBoost, LightGBM, and CatBoost models.
 # It calculates various performance metrics such as AUC, Sensitivity, Specificity, PPV, NPV, F1 Scores, Accuracy, and Kappa.
 
-# Load necessary libraries
-library(xgboost)
-library(lightgbm)
-library(catboost)
-library(caret)
-library(dplyr)
-library(rocit)
-library(boot)
-
 
 # ------------------------ XGBoost Bootstrap Evaluation ------------------------
 
@@ -28,7 +19,7 @@ features_XG <- setdiff(names(train_data_final_XG), target_col)
 label_XG <- train_data_final_XG[[target_col]]
 
 #prediction on the test set
-test_preds_XG <-predict(best_model_XG_RF, as.matrix(test_data_final[,features]))
+test_preds_XG <-predict(best_model_XG_RF, as.matrix(test_data_final_XG[,features]))
 
 # 计算AUC
 roc_result <- rocit(score = test_preds_XG, class = as.factor(test_data_final[[target_col]]), negref = "0", method = "bin")
@@ -84,7 +75,7 @@ features_Light <- setdiff(names(train_data_final_Light), target_col)
 label_Light <- train_data_final_Light[[target_col]]
 
 #prediction on the test set
-test_preds_Light <-predict(best_model_Light_RF, as.matrix(test_data_final[,features]))
+test_preds_Light <-predict(best_model_Light_RF, as.matrix(test_data_final_Light[,features]))
 
 # 计算AUC
 roc_result <- rocit(score = test_preds_Light, class = as.factor(test_data_final[[target_col]]), negref = "0", method = "bin")
