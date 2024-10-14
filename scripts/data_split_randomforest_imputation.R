@@ -3,15 +3,11 @@
 # It splits the dataset into training and testing sets, converts specified columns to factors,
 # performs imputation on both sets, and exports the processed data.
 
-# Load necessary libraries
-library(dplyr)
-library(caret)
-library(missRanger)
 
 # ------------------------ Data Splitting ------------------------
 
 # Read the dataset
-data5 <- read.csv("outputs/data105.csv")
+data5 <- read.csv("outputs/data107.csv")
 
 # Set seed for reproducibility
 set.seed(234)
