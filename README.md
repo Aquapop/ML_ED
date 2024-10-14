@@ -15,11 +15,17 @@ This project aims to utilize machine learning algorithms such as XGBoost, LightG
 
 3. **Data Preprocessing**
    - [Outlier Treatment](scripts/outlier_analysis.R)
-   - output:[data105.csv]((https://github.com/Aquapop/ML_ED/blob/main/Data/output/data105.csv))
-   - 
+   - output:[data104.csv](https://github.com/Aquapop/ML_ED/blob/main/Data/output/data104.csv)
+     
    - [Basic Characteristics of Respondents](scripts/univariate_analysis_and_logarithmic_transformation.R)
+   - outputs:[data105.csv](https://github.com/Aquapop/ML_ED/blob/main/Data/output/data105.csv);[chi_square_results.csv](https://github.com/Aquapop/ML_ED/blob/main/Data/output/chi_square_results.csv);[t_test_results.csv](https://github.com/Aquapop/ML_ED/blob/main/Data/output/t_test_results.csv)
+     
    - [Logarithmic Transformation](scripts/univariate_analysis_and_logarithmic_transformation.R)
+   - output:[data107.csv](https://github.com/Aquapop/ML_ED/blob/main/Data/output/data107.csv)
+     
    - [Dataset Splitting](scripts/data_split_randomforest_imputation.R)
+   - outputs:[data107_train.csv](https://github.com/Aquapop/ML_ED/blob/main/Data/output/data107_train.csv);[data107_test.csv](https://github.com/Aquapop/ML_ED/blob/main/Data/output/data107_test.csv)
+     
    - [Handling Missing Values](scripts/data_split_randomforest_imputation.R)
 
 4. **Feature Selection**
