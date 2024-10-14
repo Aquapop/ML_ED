@@ -2,12 +2,6 @@
 # This script analyzes feature importance and SHAP values for an XGBoost model.
 # It generates feature importance plots and SHAP value visualizations to interpret model predictions.
 
-# Load necessary libraries
-library(xgboost)
-library(ggplot2)
-library(shapviz)
-library(caret)
-library(dplyr)
 
 # ------------------------ Feature Importance Analysis ------------------------
 
