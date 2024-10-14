@@ -186,3 +186,89 @@ data123_pmm %>%
     SD_metrics = sd("metrics", na.rm = TRUE)
   ) %>%
   print()
+
+# -----------------------------------
+# Part 2: Sensitivity Analysis RF15 RF20 RF25
+# -----------------------------------
+
+data123 <- data.frame(
+  AUC = c(results_metricsRF$t[,1], results_metricsRF_20$t[,1], results_metricsRF_15$t[,1]),
+  Sensitivity = c(results_metricsRF$t[,2], results_metricsRF_20$t[,2], results_metricsRF_15$t[,2]),
+  specificity = c(results_metricsRF$t[,3], results_metricsRF_20$t[,3], results_metricsRF_15$t[,3]),
+  PPV = c(results_metricsRF$t[,4], results_metricsRF_20$t[,4], results_metricsRF_15$t[,4]),
+  NPV = c(results_metricsRF$t[,5], results_metricsRF_20$t[,5], results_metricsRF_15$t[,5]),
+  F1_Score_pos = c(results_metricsRF$t[,6], results_metricsRF_20$t[,6], results_metricsRF_15$t[,6]),
+  F1_Score_neg = c(results_metricsRF$t[,7], results_metricsRF_20$t[,7], results_metricsRF_15$t[,7]),
+  Accuracy = c(results_metricsRF$t[,8], results_metricsRF_20$t[,8], results_metricsRF_15$t[,8]),
+  KAPPA = c(results_metricsRF$t[,9], results_metricsRF_20$t[,9], results_metricsRF_15$t[,9]),
+  Model = factor(rep(c("RF25", "RF20", "RF15"), each = 1000))
+)
+
+write.csv(data123,"data25_20_15.csv")
+data123 = read.csv("data25_20_15.csv")
+data123$Model<- as.factor(data123$Model)
+
+
+#选择要分析的指标
+# 正态性检验
+shapiro_test_RF25 <- shapiro.test(data123$KAPPA[data123$Model == "RF25"])
+shapiro_test_RF20 <- shapiro.test(data123$KAPPA[data123$Model == "RF20"]) 
+shapiro_test_RF15 <- shapiro.test(data123$KAPPA[data123$Model == "RF15"]) 
+
+
+
+
+# 方差齐性检验
+levene_test <- car::leveneTest(KAPPA ~ Model, data = data123)
+
+# 检验每组的正态性
+normality_passed <- all(shapiro_test_RF25$p.value > 0.05, shapiro_test_RF20$p.value > 0.05, shapiro_test_RF15$p.value > 0.05)
+
+# 检验方差齐性
+variance_homogeneity_passed <- !is.na(levene_test$`Pr(>F)`[1]) && levene_test$`Pr(>F)`[1] > 0.05
+
+if (normality_passed && variance_homogeneity_passed) {
+  # 如果数据符合正态分布且方差齐性，进行Fisher's ANOVA检验
+  anova_result <- aov(Sensitivity ~ Model, data = data123)
+} else {
+  #如果数据符合正态分布但方差不齐，进行Welch's ANOVA检验
+  oneway_test_result <- oneway.test(Sensitivity ~ Model, data = data123, var.equal = FALSE)
+}
+
+# 如果数据不符合正态分布且方差不齐，进行Kruskal-Wallis检验
+kruskal_test_result <- kruskal.test(KAPPA ~ Model, data = data123)
+
+#如果不能进行Fisher's ANOVA检验，那就检查正态性和方差齐性，再决定后续用什么检验（Welch's ANOVA检验，Kruskal-Wallis检验2选1）
+print(shapiro_test_RF25$p.value)
+print(shapiro_test_RF20$p.value)
+print(shapiro_test_RF15$p.value)
+print(variance_homogeneity_passed)
+
+
+# 输出统计检验结果（fisher's anova）
+print(summary(anova_result))
+#事后分析
+tukey_result <- TukeyHSD(anova_result)
+print(tukey_result)
+
+#或Welch‘s anova
+print(oneway_test_result)
+# Welch's ANOVA检验具有显著性，进行Games-Howell事后比较
+res <- gamesHowellTest(x = data123$AUC, g = data123$Model)
+# 查看Games-Howell测试的结果
+print(res)
+
+# 或(Kruskal-Wallis)
+print(kruskal_test_result)
+#Dunn事后分析（Bonferroni校正）
+dunn_result <- dunn.test(x = data123$KAPPA, g = data123$Model, method = "bonferroni")
+
+#观察每组的均数±标准差
+data123 %>%
+  group_by(Model) %>%
+  summarise(
+    mean = mean(KAPPA, na.rm = TRUE),
+    sd = sd(KAPPA, na.rm = TRUE)
+  ) %>%
+  print()
+
