@@ -35,6 +35,7 @@ This project aims to utilize machine learning algorithms such as XGBoost, LightG
 
 6. **Model Performance Comparison on Train Set**
    - [bootstrap_in_test_set.R](scripts/bootstrap_in_test_set.R)
+   - [model_performance_comparison.R](scripts/model_performance_comparison.R)
 
 7. **Results Analysis**
    - [XGBoost SHAP Importance](scripts/XGBoost_SHAP_importance.R)
