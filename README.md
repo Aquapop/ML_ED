@@ -11,7 +11,7 @@ This project aims to utilize machine learning algorithms such as XGBoost, LightG
 
 2. **Data Preparation**  
    - [data_collection.R](scripts/data_collection.R)
-   - outputs：[data01_04.csv]([Data/output/data01_04.csv](https://github.com/Aquapop/ML_ED/blob/main/Data/output/data01_04.csv))
+   - outputs：[data01_04.csv](https://github.com/Aquapop/ML_ED/blob/main/Data/output/data01_04.csv)
 
 3. **Data Preprocessing**
    - [Outlier Treatment](scripts/outlier_analysis.R)
