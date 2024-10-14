@@ -25,7 +25,7 @@ This project aims to utilize machine learning algorithms such as XGBoost, LightG
    - [Handling Missing Values](scripts/data_split_randomforest_imputation.R) outputs:[dataRF_test.csv](https://github.com/Aquapop/ML_ED/blob/main/Data/output/dataRF_test.csv);[dataRF_train.csv](https://github.com/Aquapop/ML_ED/blob/main/Data/output/dataRF_train.csv)
 
 4. **Feature Selection**
-   - [feature_selection.R](scripts/feature_selection.R) outputs:[dataRF_train_filtered.csv](https://github.com/Aquapop/ML_ED/blob/main/Data/output//dataRF_train_flitered.csv);[dataRF_test_filtered.csv](https://github.com/Aquapop/ML_ED/blob/main/Data/output/dataRF_test_flitered.csv)
+   - [feature_selection.R](scripts/feature_selection.R) outputs:[dataRF_train_filtered.csv](https://github.com/Aquapop/ML_ED/blob/main/Data/output/dataRF_train_flitered.csv);[dataRF_test_filtered.csv](https://github.com/Aquapop/ML_ED/blob/main/Data/output/dataRF_test_flitered.csv)
      
 5. **Model Training and Validation**
    - [Hyperparameter Tuning](scripts/hyperparameter_tuning.R)
@@ -35,7 +35,7 @@ This project aims to utilize machine learning algorithms such as XGBoost, LightG
 
 6. **Model Performance Comparison on Train Set**
    - [bootstrap_in_test_set.R](scripts/bootstrap_in_test_set.R)
-   - [model_performance_comparison.R](scripts/model_performance_comparison.R)
+   - [model_performance_comparison.R](scripts/model_performance_comparison.R) output:[model_performance_comparison.csv](https://github.com/Aquapop/ML_ED/blob/main/Data/output/model_performance_comparison.csv)
 
 7. **Results Analysis**
    - [XGBoost SHAP Importance](scripts/XGBoost_SHAP_importance.R)
