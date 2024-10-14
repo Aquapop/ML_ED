@@ -25,8 +25,8 @@ This project aims to utilize machine learning algorithms such as XGBoost, LightG
    - [Handling Missing Values](scripts/data_split_randomforest_imputation.R) outputs:[dataRF_test.csv](https://github.com/Aquapop/ML_ED/blob/main/Data/output/dataRF_test.csv);[dataRF_train.csv](https://github.com/Aquapop/ML_ED/blob/main/Data/output/dataRF_train.csv)
 
 4. **Feature Selection**
-   - [feature_selection.R](scripts/feature_selection.R) outputs:[dataRF_train_filtered.csv](https://github.com/Aquapop/ML_ED/blob/main/Data/output/dataRF_train_filtered.csv);[dataRF_test_filtered.csv](https://github.com/Aquapop/ML_ED/blob/main/Data/output/dataRF_test_filtered.csv)
-
+   - [feature_selection.R](scripts/feature_selection.R) outputs:[dataRF_train_filtered.csv](https://github.com/Aquapop/ML_ED/blob/main/Data/output//dataRF_train_flitered.csv);[dataRF_test_filtered.csv](https://github.com/Aquapop/ML_ED/blob/main/Data/output/dataRF_test_flitered.csv)
+     
 5. **Model Training and Validation**
    - [Hyperparameter Tuning](scripts/hyperparameter_tuning.R)
    - [XGBoost](scripts/xgboost_model_training.R)
