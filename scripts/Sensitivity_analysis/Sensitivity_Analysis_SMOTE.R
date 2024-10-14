@@ -3,16 +3,6 @@
 # for handling class imbalance. It includes data preprocessing, applying SMOTE and ENN, cross-validation with XGBoost,
 # evaluation of model performance, and bootstrap analysis.
 
-# Load necessary libraries
-library(caret)
-library(dplyr)
-library(xgboost)
-library(rocit)
-library(boot)
-library(UBL)          
-library(smotefamily)     
-library(doParallel)
-
 # Set seed for reproducibility
 set.seed(6668)
 
@@ -34,31 +24,32 @@ preprocess_data <- function(data, target_col) {
   target <- data_temp[[target_col]]
   
   # Print class distribution before SMOTE
-  cat("Before SMOTE: Number of positive =", sum(target == 1), "\n")
-  cat("Before SMOTE: Number of negative =", sum(target == 0), "\n")
+  print(paste("Before SMOTE: Number of positive =", sum(target == 1)))
+  print(paste("Before SMOTE: Number of negative =", sum(target == 0)))
   
   # Apply SMOTE (using Borderline-SMOTE)
-  smote_result <- SMOTE(X, target, perc.over = 100, perc.under = 200)  # Adjust parameters as needed
+  slsmote_result <- SLS(X, target, K = 5, C = 5, dupSize = 0)
   
   # Combine original majority class samples with synthetic minority class samples
-  data_smote <- smote_result$data
+  data_smote <- rbind(slsmote_result$orig_N, slsmote_result$syn_data)
+  data_smote_df <- as.data.frame(data_smote)
   
   # Rename the target column back to original
-  names(data_smote)[names(data_smote) == "class"] <- target_col
+ names(data_smote_df)[names(data_smote_df) == "class"] <- target_col
   
   # Print class distribution after SMOTE
-  cat("After SMOTE: Number of positive =", sum(data_smote[[target_col]] == 1), "\n")
-  cat("After SMOTE: Number of negative =", sum(data_smote[[target_col]] == 0), "\n")
-  
+  print(paste("After SMOTE: Number of positive =", sum(data_smote_df[[target_col]] == 1)))
+  print(paste("After SMOTE: Number of negative =", sum(data_smote_df[[target_col]] == 0)))
+
   # Apply ENN to clean the data
-  enn_result <- ENNClassif(as.formula(paste(target_col, "~ .")), data_smote, k = 5, dist = "Euclidean", Cl = "0")
+  ENN_result <- ENNClassif(ED~., data_smote_df, k = 5, dist = "Euclidean", Cl = "0")
   
   # Print class distribution after ENN
-  cat("After ENN: Number of positive =", sum(enn_result[[1]][[target_col]] == 1), "\n")
-  cat("After ENN: Number of negative =", sum(enn_result[[1]][[target_col]] == 0), "\n")
+ print(paste("After ENN: Number of positive =", sum(ENN_result[[1]][[target_col]] == 1)))
+  print(paste("After ENN: Number of negative =", sum(ENN_result[[1]][[target_col]] == 0)))
   
   # Return the cleaned dataset
-  return(enn_result[[1]])
+  return(ENN_result[[1]])
 }
 
 # Initialize fold list for cross-validation
@@ -110,7 +101,7 @@ for(i in seq_along(folds)) {
     min_child_weight = 4,    # Minimum sum of instance weight (hessian) needed in a child
     subsample = 0.75,        # Subsample ratio of the training instance
     colsample_bytree = 0.5,  # Subsample ratio of columns when constructing each tree
-    scale_pos_weight = sum(train_data_smote[[target_col]] == 0) / sum(train_data_smote[[target_col]] == 1)  # Balancing positive and negative weights
+    scale_pos_weight = sum(train_data[[target_col]] == 0) / sum(train_data[[target_col]] == 1)  # Balancing positive and negative weights
   )
   
   # Train the XGBoost model with the specified parameters
