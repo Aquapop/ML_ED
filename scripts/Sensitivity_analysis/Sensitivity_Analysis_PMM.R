@@ -2,15 +2,6 @@
 # This script performs sensitivity analysis using Predictive Mean Matching (PMM) for data imputation.
 # It includes data preparation, feature selection, model training with cross-validation, and bootstrap analysis.
 
-# Load necessary libraries
-library(caret)
-library(dplyr)
-library(mice)
-library(doParallel)
-library(lightgbm)
-library(xgboost)
-library(catboost)
-
 # Set seed for reproducibility
 set.seed(234)
 
