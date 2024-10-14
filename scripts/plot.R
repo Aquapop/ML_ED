@@ -1,11 +1,4 @@
 
-# Load necessary libraries
-library(ROCit)
-library(ggplot2)
-library(dplyr)
-library(rms)
-library(rmda)
-
 #After determining which fold is the best model, retrain that fold model to get train_preds, validation_preds, and make predictions on the test set to get test_preds, see xgboost_model_training.R; lightgbm_model_ training.R; CatBoost_model_training.
 
 target_col <- "ED" 
@@ -59,19 +52,19 @@ abline(h = seq(0, 1, by = 0.2), v = seq(0, 1, by = 0.2), lty = "dotted", col = "
 title(main = "ROC Curve in validation Groups")
 # Calculate ROC data for LightGBM using rocit
 roc_result1 <- rocit(score = validation_preds_Light, 
-                     class = as.factor(actual), 
+                     class = as.factor(actuals), 
                      negref = "0", method = "bin")
 lines(roc_result1$FP, roc_result1$TP, col = "#82B29A", lwd = 2)
 
 # Calculate ROC data for XGBoost using rocit
 roc_result2 <- rocit(score = validation_preds_XG, 
-                     class = as.factor(actual), 
+                     class = as.factor(actuals), 
                      negref = "0", method = "bin")
 lines(roc_result2$FP, roc_result2$TP, col = "#3C405B", lwd = 2)
 
 # Calculate ROC data for CatBoost using rocit
 roc_result3 <- rocit(score = validation_preds_CAT, 
-                     class = as.factor(actual), 
+                     class = as.factor(actuals), 
                      negref = "0", method = "bin")
 lines(roc_result3$FP, roc_result3$TP, col = "#DF7A5E", lwd = 2)
 
@@ -94,19 +87,19 @@ abline(h = seq(0, 1, by = 0.2), v = seq(0, 1, by = 0.2), lty = "dotted", col = "
 title(main = "ROC Curve in test Groups")
 # Calculate ROC data for LightGBM using rocit
 roc_result1 <- rocit(score = test_preds_Light, 
-                     class = as.factor(actual), 
+                     class = as.factor(actuals), 
                      negref = "0", method = "bin")
 lines(roc_result1$FP, roc_result1$TP, col = "#82B29A", lwd = 2)
 
 # Calculate ROC data for XGBoost using rocit
 roc_result2 <- rocit(score = test_preds_XG, 
-                     class = as.factor(actual), 
+                     class = as.factor(actuals), 
                      negref = "0", method = "bin")
 lines(roc_result2$FP, roc_result2$TP, col = "#3C405B", lwd = 2)
 
 # Calculate ROC data for CatBoost using rocit
 roc_result3 <- rocit(score = test_preds_CAT, 
-                     class = as.factor(actual), 
+                     class = as.factor(actuals), 
                      negref = "0", method = "bin")
 lines(roc_result3$FP, roc_result3$TP, col = "#DF7A5E", lwd = 2)
 
