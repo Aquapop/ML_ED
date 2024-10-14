@@ -3,12 +3,6 @@
 # It identifies the most important features from each model and selects the common top features.
 # The filtered datasets with selected features are exported for further analysis.
 
-# Load necessary libraries
-library(lightgbm)
-library(xgboost)
-library(catboost)
-library(dplyr)
-library(caret)
 
 # ------------------------ Load Data ------------------------
 
