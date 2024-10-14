@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project aims to utilize machine learning algorithms such as XGBoost, LightGBM, and CatBoost to build models that predict erectile dysfunction (ED). The data is sourced from the National Health and Nutrition Examination Survey (NHANES). This README provides detailed instructions on how to reproduce this study, including data preprocessing, feature selection, model training, evaluation, and sensitivity analysis.
+This project aims to utilize machine learning algorithms such as XGBoost, LightGBM, and CatBoost to build models that predict erectile dysfunction (ED). The data is sourced from the National Health and Nutrition Examination Survey (NHANES). This README provides detailed instructions on how to reproduce this study, including data preprocessing, feature selection, model training, evaluation, and sensitivity analysis. The survey data are publicly available on the Internet for data users and researchers throughout the world (www.cdc.gov/nchs/nhanes/).
 
 ## Contents and Code Running Order
 
@@ -63,3 +63,64 @@ This project aims to utilize machine learning algorithms such as XGBoost, LightG
 - **R:** Ensure that R (version 4.4 or higher) is installed on your system. You can download R from [CRAN](https://cran.r-project.org/).
 - **RStudio (Optional):** While not mandatory, RStudio provides a user-friendly interface for working with R.
 
+  
+
+## Features and descriptions
+
+- `RIDAGEEX`: Exam Age in Months
+- `DMDEDUC`: Education
+- `INDFMPIR`: Family PIR
+- `BMXBMI`: Body Mass Index (kg/m**2)
+- `BMXWAIST`: Waist Circumference (cm)
+- `BMXARMC`: Arm Circumference (cm)
+- `BMXHT`: Standing Height (cm)
+- `SSTESTO`: Testosterone (ng/mL)
+- `PAD590`: Hours watch TV or videos past 30 days
+- `PAD320`: Moderate activity over past 30 days
+- `DIQ010`: Doctor told you have diabetes
+- `LBXCRY`: B-cryptoxanthin (ug/dL)
+- `LBDFOLSI`: Folate, serum (nmol/L)
+- `LBDVIDMS`: Vitamin D
+- `KIQ081`: Usually have trouble trying to urinate
+- `KIQ161`: Age at first BPH diagnosis
+- `LBXP1`: PSA, total (ng/mL)
+- `LBDLYMNO`: Lymphocyte number
+- `LBXHGB`: Hemoglobin (g/dL)
+- `LBDNENO`: Segmented neutrophils number
+- `LBXPLTSI`: Platelet count (%) SI
+- `SII`: Systemic immune-inflammation index
+- `CDQ010`: Shortness of breath on stairs/inclines
+- `RIDRETH1`: Race/Ethnicity
+- `DMDMARTL`: Marital Status
+- `DMDHHSIZ`: Total number of people in the Household
+- `SMQ020`: Smoked at least 100 cigarettes in life
+- `ALQ110`: Had at least 12 alcohol drinks in lifetime
+- `BPQ040A`: Taking prescription for hypertension
+- `BPQ090D`: Told to take prescription for cholesterol
+- `MCQ220`: Ever told you had cancer or malignancy
+- `LBXLUZ`: Combined Lutein/zeaxanthin (ug/dL)
+- `LBDB12SI`: Vitamin B12, serum (pmol/L)
+- `KIQ101`: Bladder feels empty after urinating
+- `KIQ106`: Diagnosed with prostate disease
+- `KIQ121`: Diagnosed with enlarged prostate
+- `KIQ141`: Enlargement was BPH
+- `KIQ182`: Enlargement due to cancer
+- `KIQ321`: Ever had a PSA test
+- `KIQ341`: Ever had a rectal exam
+- `LBXGLU`: Glucose, plasma (mg/dL)
+- `KIQ115`: Infection or inflammation of prostate
+- `SXQ280`: Are you circumcised or uncircumcised
+- `SXD030`: Age when first had sexual intercourse
+- `SXQ170`: Women sex intercourse partners/life
+- `SXQ260`: Doctor ever told you had genital herpes
+- `SXQ265`: Doctor ever told you had genital warts
+- `SXQ270`: Doctor ever told you had gonorrhea
+- `SXQ272`: Doctor ever told you had chlamydia
+- `STI`: Sexually transmitted disease
+- `LBXTR`: Triglyceride (mg/dL)
+- `LBXHDD`: Direct HDL-Cholesterol (mg/dL)
+- `CIDDSCOR`: Depression Score
+- `CIDGSCOR`: GAD score
+- `CIDPSCOR`: Panic Score
+- `CDQ001`: SP ever had pain or discomfort in chest
+- `CVDFITLV`: Cardiovascular fitness level
