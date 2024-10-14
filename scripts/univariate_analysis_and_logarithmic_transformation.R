@@ -4,13 +4,8 @@
 # It also generates data distributions and statistical summaries, and exports the results as CSV files.
 # logarithmic transformation were applyed to the data
 
-# Load necessary libraries
-library(survey)
-library(dplyr)
-library(haven)  # For reading .XPT files
-
 # Read the cleaned data
-datat <- read.csv("outputs/data105.csv")
+datat <- read.csv("outputs/data104.csv")
 
 # Define survey design
 design <- svydesign(ids = ~SDMVPSU, strata = ~SDMVSTRA, weights = ~WTMEC2YR, data = datat, nest = TRUE)
@@ -180,7 +175,7 @@ write.csv(final_summary, "outputs/t_test_results.csv", row.names = FALSE)
 # Based on the above final_summary, t_test_results, chi_tests_results, and final_results,
 # create the baseline analysis result Table 1 
 # And remove features without statistical differences from the univariate analysis to get data105
-
+# remove features: ALQ110;KIQ115;STI;CVDFITLV;SXQ260;SXQ265;SXQ270;SXQ272;SXD030;SXQ170;LBXHDD;LBXLUZ;LBDB12SI 
 #--------------------------------------------------Logarithmic Transformation-------------------------------------------------------
 factorCols <- c(
   "DMDEDUC",
