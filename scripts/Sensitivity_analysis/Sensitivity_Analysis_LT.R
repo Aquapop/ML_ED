@@ -20,10 +20,10 @@ write.csv(test_data1, "data105_test.csv")
 # **Manual Step Required:**
 # Open `data105_train.csv` in Excel.
 # Remove the target variable column (`ED`).
-# Save the modified file as `train_RF.csv`.
+# Save the modified file as `train105_RF.csv`.
 
 # Read the modified training data without the target variable
-test6 <- read.csv('train_RF.csv') 
+test6 <- read.csv('train105_RF.csv') 
 
 # List of categorical columns to be converted to factors
 factorCols <- c(
@@ -65,20 +65,20 @@ dataRF_train <- missRanger(
 )                           
 
 # Save the imputed training data
-write.csv(dataRF_train, "dataRF_train.csv")  
+write.csv(dataRF_train, "data105RF_train.csv")  
 
 # **Manual Step Required:**
 # Open `data105_test.csv` in Excel.
 # Remove the target variable column (`ED`).
-# Save the modified file as `test_RF.csv`.
+# Save the modified file as `test105_RF.csv`.
 
 # Impute missing values in the testing set
 
 # Save the original testing data to CSV
-write.csv(test_data1, "test_RF.csv")
+write.csv(test_data1, "test105_RF.csv")
 
 # Read the modified testing data without the target variable
-dataRF_test <- read.csv("test_RF.csv")
+dataRF_test <- read.csv("test105_RF.csv")
 
 # Convert specified columns to factors in the testing data
 dataRF_test <- dataRF_test %>%
@@ -96,7 +96,7 @@ dataRF_test <- missRanger(
 )        
 
 # Save the imputed testing data
-write.csv(dataRF_test, "dataRF_test.csv")  
+write.csv(dataRF_test, "data105RF_test.csv")  
 
 # **Manual Step Required:**
 # Open `dataRF_train.csv` and `dataRF_test.csv` in Excel.
@@ -105,8 +105,8 @@ write.csv(dataRF_test, "dataRF_test.csv")
 # Save the updated files.
 
 # Read the final imputed and target-included training and testing data
-training_data <- read.csv("dataRF_train.csv")
-test_data1 <- read.csv("dataRF_test.csv")
+training_data <- read.csv("data105RF_train.csv")
+test_data1 <- read.csv("data105RF_test.csv")
 
 # Define the target column
 target_col <- "ED"  # Name of the target variable column
