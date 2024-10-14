@@ -64,12 +64,12 @@ print(selected_features)
 # Create final training and testing datasets with selected features
 train_data_final <- training_data[, c(selected_features, 'ED')]
 test_data_final <- test_data1[, c(selected_features, 'ED')]
-write.csv(test_data_final, "data107_test_filtered.csv")
-write.csv(train_data_final, "data107_train_filtered.csv")
+write.csv(test_data_final, "data107_test_flitered.csv")
+write.csv(train_data_final, "data107_train_flitered.csv")
 
 # Reload the filtered datasets
-test_data_final <- read.csv("data107_test_filtered.csv")
-train_data_final <- read.csv("data107_train_filtered.csv")
+test_data_final <- read.csv("data107_test_flitered.csv")
+train_data_final <- read.csv("data107_train_flitered.csv")
 str(train_data_final)
 
 # Initialize fold list for cross-validation
@@ -196,8 +196,8 @@ print(f1_score_n)
 best_model_XG <- readRDS("xg_model_fold_3.rds")
 
 # Reload the filtered datasets
-test_data_final <- read.csv("data107_test_filtered.csv")
-train_data_final <- read.csv("data107_train_filtered.csv")
+test_data_final <- read.csv("data107_test_flitered.csv")
+train_data_final <- read.csv("data107_train_flitered.csv")
 target_col <- "ED" 
 features <- setdiff(names(train_data_final), target_col)
 best_model_XG <- readRDS("xg_model_fold_3.rds")
