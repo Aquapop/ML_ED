@@ -26,7 +26,9 @@ required_packages <- c(
   "UBL",
   "Matrix",
   "data.table",
-  "rlang"
+  "rlang",
+  "survey",
+  "smotefamily"
 )
 
 # Function to check, install, and load packages
@@ -55,3 +57,30 @@ install_and_load(required_packages)
 
 # Inform the user that all packages have been installed and loaded
 message("All required packages have been installed and loaded successfully.")
+
+#library all required packages
+library(dplyr)
+library(lightgbm)
+library(xgboost)
+library(catboost)
+library(ROCit)
+library(caret)
+library(mice)
+library(missRanger)
+library(doParallel)
+library(foreach)
+library(ggplot2)
+library(car)
+library(dunn.test)
+library(PMCMRplus)
+library(rms)
+library(boot)
+library(shapviz)
+library(rmda)
+library(ufs)
+library(UBL)
+library(Matrix)
+library(data.table)
+library(rlang)
+library(survey)
+library(smotefamily)
