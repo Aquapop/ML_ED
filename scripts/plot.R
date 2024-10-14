@@ -116,19 +116,19 @@ legend("bottomright",
 
 # Create data.frames for predictions
 predictions_xgb <- data.frame(
-  actual = actual,
+  actual = actuals,
   pred_pass = test_preds_XG
 )
 write.csv(predictions_xgb, "data_XG.csv")
 
 predictions_lgb <- data.frame(
-  actual = actual,
+  actual = actuals,
   pred_pass = test_preds_Light
 )
 write.csv(predictions_lgb, "data_LIGHT.csv")
 
 predictions_cat <- data.frame(
-  actual = actual,
+  actual = actuals,
   pred_pass = test_preds_CAT
 ) %>%
   mutate(pred_pass = 1 / (1 + exp(-pred_pass)))  # Apply logistic transformation
@@ -150,6 +150,7 @@ brier_score_XG <- mean((predictions_xgb$actual - predictions_xgb$pred_pass)^2)
 brier_score_CAT <- mean((predictions_cat$actual - predictions_cat$pred_pass)^2)
 
 # Logistic Regression Models for Calibration
+library(rms)
 
 # XGBoost
 dd_XG <- datadist(predictions_xgb)
