@@ -2,13 +2,6 @@
 # This script trains a CatBoost model using stratified k-fold cross-validation.
 # It evaluates model performance using ROC AUC and F1 scores, and saves the best model.
 
-# Load necessary libraries
-library(catboost)
-library(caret)
-library(dplyr)
-library(doParallel)
-library(foreach)
-library(rocit)
 
 # ------------------------ Load Data ------------------------
 
@@ -170,7 +163,7 @@ for(i in seq_along(folds)) {
   # ------------------------ Confusion Matrix and F1 Score ------------------------
   
   # Convert probabilities to class labels based on a threshold of 0.5
-  pred_class <- ifelse(pred > 0.5, "1", "0")
+  pred_class <- ifelse(validation_preds_CAT > 0.5, "1", "0")
   
   # Convert to factor for confusion matrix
   pred_class <- factor(pred_class, levels = c("1", "0"))
