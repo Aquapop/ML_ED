@@ -182,7 +182,7 @@ print(dunn_result_pmm)
 data123_pmm %>%
   group_by(Model) %>%
   summarise(
-    Mean_"metrics" = mean("metrics", na.rm = TRUE),
-    SD_"metrics" = sd("metrics", na.rm = TRUE)
+    Mean_metrics = mean("metrics", na.rm = TRUE),
+    SD_metrics = sd("metrics", na.rm = TRUE)
   ) %>%
   print()
