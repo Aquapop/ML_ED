@@ -7,7 +7,7 @@ This project aims to utilize machine learning algorithms such as XGBoost, LightG
 ## Contents and Code Running Order
 
 1. **Environment Dependencies**  
-   - [install_packages.R](scripts/install_packages.R)
+   - [install_and_library_packages.R](scripts/install_and_library_packages.R)
 
 2. **Data Preparation**  
    - [data_collection.R](scripts/data_collection.R)
