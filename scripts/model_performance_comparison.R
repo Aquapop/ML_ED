@@ -2,28 +2,21 @@
 # This script compares the performance of CatBoost, XGBoost, and LightGBM models using bootstrap results.
 # It performs statistical tests to determine significant differences in performance metrics.
 
-# Load necessary libraries
-library(caret)           
-library(dplyr)          
-library(boot)            
-library(car)            
-library(PMCMRplus)
-library(ufs)
-library(dunn.test)        
+
 
 # ------------------------ Data Aggregation ------------------------
 
 # Combine bootstrap results from CatBoost, XGBoost, and LightGBM
 data123 <- data.frame(
-  AUC = c(results_metricsCAT_RF$t[,1], results_metricsRF$t[,1], results_metricsLight_RF$t[,1]),
-  Sensitivity = c(results_metricsCAT_RF$t[,2], results_metricsRF$t[,2], results_metricsLight_RF$t[,2]),
-  Specificity = c(results_metricsCAT_RF$t[,3], results_metricsRF$t[,3], results_metricsLight_RF$t[,3]),
-  PPV = c(results_metricsCAT_RF$t[,4], results_metricsRF$t[,4], results_metricsLight_RF$t[,4]),
-  NPV = c(results_metricsCAT_RF$t[,5], results_metricsRF$t[,5], results_metricsLight_RF$t[,5]),
-  F1_Score_Pos = c(results_metricsCAT_RF$t[,6], results_metricsRF$t[,6], results_metricsLight_RF$t[,6]),
-  F1_Score_Neg = c(results_metricsCAT_RF$t[,7], results_metricsRF$t[,7], results_metricsLight_RF$t[,7]),
-  Accuracy = c(results_metricsCAT_RF$t[,8], results_metricsRF$t[,8], results_metricsLight_RF$t[,8]),
-  Kappa = c(results_metricsCAT_RF$t[,9], results_metricsRF$t[,9], results_metricsLight_RF$t[,9]),
+  AUC = c(results_metrics_CAT_RF$t[,1], results_metrics_XG_RF$t[,1], results_metrics_Light_RF$t[,1]),
+  Sensitivity = c(results_metrics_CAT_RF$t[,2], results_metrics_XG_RF$t[,2], results_metrics_Light_RF$t[,2]),
+  Specificity = c(results_metrics_CAT_RF$t[,3], results_metrics_XG_RF$t[,3], results_metrics_Light_RF$t[,3]),
+  PPV = c(results_metrics_CAT_RF$t[,4], results_metrics_XG_RF$t[,4], results_metrics_Light_RF$t[,4]),
+  NPV = c(results_metrics_CAT_RF$t[,5], results_metrics_XG_RF$t[,5], results_metrics_Light_RF$t[,5]),
+  F1_Score_Pos = c(results_metrics_CAT_RF$t[,6], results_metrics_XG_RF$t[,6], results_metrics_Light_RF$t[,6]),
+  F1_Score_Neg = c(results_metrics_CAT_RF$t[,7], results_metrics_XG_RF$t[,7], results_metrics_Light_RF$t[,7]),
+  Accuracy = c(results_metrics_CAT_RF$t[,8], results_metrics_XG_RF$t[,8], results_metrics_Light_RF$t[,8]),
+  Kappa = c(results_metrics_CAT_RF$t[,9], results_metrics_XG_RF$t[,9], results_metrics_Light_RF$t[,9]),
   Model = factor(rep(c("CatBoost", "XGBoost", "LightGBM"), each = 1000))
 )
 
