@@ -38,7 +38,7 @@ This project aims to utilize machine learning algorithms such as XGBoost, LightG
    - [model_performance_comparison.R](scripts/model_performance_comparison.R) output:[model_performance_comparison.csv](https://github.com/Aquapop/ML_ED/blob/main/Data/output/model_performance_comparison.csv)
 
 7. **Results Analysis**
-   - [XGBoost SHAP Importance](scripts/XGBoost_SHAP_importance.R)
+   - [XGBoost SHAP Importance](scripts/XGBoost_SHAP_importance.R) output:[Figure 5.png](https://github.com/Aquapop/ML_ED/blob/main/Data/output/Figure%205.png); [Figure 6.png](https://github.com/Aquapop/ML_ED/blob/main/Data/output/Figure%206.png)
 
 8. **Sensitivity Analysis**
    - [Sensitivity Analysis SMOTE](scripts/Sensitivity_analysis/Sensitivity_Analysis_SMOTE.R)
