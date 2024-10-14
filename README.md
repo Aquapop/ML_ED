@@ -10,7 +10,7 @@ This project aims to utilize machine learning algorithms such as XGBoost, LightG
    - [install_packages.R](scripts/install_packages.R)
 
 2. **Data Preparation**  
-   - [data_collection.R](scripts/data_collection.R)
+   - [data_collection.R](scripts/data_collection.R) outputs：(Data/data01_04.csv);(Data/test5.csv)
 
 3. **Data Preprocessing**
    - [Outlier Treatment](scripts/outlier_analysis.R)
