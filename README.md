@@ -48,10 +48,10 @@ This project aims to utilize machine learning algorithms such as XGBoost, LightG
    - [Sensitivity Analysis Comparison](scripts/Sensitivity_analysis/Sensitivity_Analysis_Comparison.R)
 
 8. **Plots**
-   - [plots.R](scripts/plot.R)
-
+   - [plots.R](scripts/plot.R) output:[Figure 2.PNG](https://github.com/Aquapop/ML_ED/blob/main/Data/output/Figure%202.PNG); [Figure 3.png](https://github.com/Aquapop/ML_ED/blob/main/Data/output/Figure%203.png)
+; [Figure 4.png](https://github.com/Aquapop/ML_ED/blob/main/Data/output/Figure%204.png)
 ## Flowchart
-![image](https://github.com/Aquapop/ML_ED/blob/main/flowchart/Figure%201.png)
+![image](https://github.com/Aquapop/ML_ED/blob/main/flowchart/Figure%201.png) 
 
 
 
